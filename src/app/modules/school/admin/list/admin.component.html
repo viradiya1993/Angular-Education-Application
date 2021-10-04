@@ -1,0 +1,94 @@
+<div class="inner-body-wrap">
+	<div class="card card-custom gutter-b">
+		<div class="card-header">
+			<div class="card-title">
+				<h3 class="card-label">School Admin List</h3>
+			</div>
+			<div class="card-toolbar">
+				<button type="button" class="btn btn-primary" (click)="create()">Add School Admin</button>
+			</div>
+		</div>
+		<div class="card-body">
+			<!-- begin: Filtration form -->
+			<div class="form form-label-right">
+				<div class="form-group row">
+					<div class="col-lg-8">
+						<div class="row">
+							<div class="col-lg-6">
+								<small class="form-text text-muted">Search in name</small>
+								<input type="text" class="form-control" name="searchText" placeholder="Search" value=""
+									(keyup)="search($event.target.value)" />
+							</div>
+							<div class="col-lg-6">
+								<small class="form-text text-muted">Filter by Status</small>
+								<ng-select placeholder="Select status" [items]="statusList" bindLabel="name"
+									bindValue="value" (change)="adminStatus($event)">
+								</ng-select>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- end: Filtration form -->
+
+
+			<!-- begin:Table -->
+			<div class="table-responsive angular-bootstrap-table">
+				<table class="table table-head-custom table-vertical-center overflow-hidden" *ngIf="length > 0">
+					<thead>
+						<th>
+							Name
+						</th>
+						<th>
+							Email
+						</th>
+						<th>
+							Phone Number
+						</th>
+						<th>Status</th>
+
+						<th>Actions</th>
+					</thead>
+					<tbody>
+						<tr *ngFor="let admin of schoolAdminList">
+							<td>{{ admin?.firstName }} {{ admin?.lastName }}</td>
+							<td>{{ admin?.email }}</td>
+							<td>{{ admin?.phoneNumber }}</td>
+							<td>{{admin?.isActivated === false ? 'Active' : 'Inactive'}}</td>
+
+							<td>
+								<div class="d-flex align-items-center">
+									<a title="change status"
+										class="btn btn-icon btn-light btn-hover-primary btn-sm mx-3"
+										(click)="activeDeacticveAdmin(admin?._id, admin?.isActivated)">
+										<i class="material-icons">subject</i>
+									</a>
+
+									<button title="Edit School Admin"
+										class="btn btn-icon btn-light btn-hover-primary btn-sm mx-3"
+										(click)="edit(admin)" [disabled]="(admin?.isActivated)">
+										<i class="material-icons">edit</i>
+									</button>
+
+									<button title="Delete School Admin"
+										class="btn btn-icon btn-light btn-hover-danger btn-sm"
+										(click)="delete(admin?._id)" [disabled]="(admin?.isActivated)">
+										<i class="material-icons">delete</i>
+									</button>
+								</div>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+				<div *ngIf="length == 0" class="text-center font16 mt15 mb15 pt-4">
+					Admin record not found
+					<hr>
+				</div>
+			</div>
+			<!-- end: Table -->
+			<app-pagination *ngIf="length" [childMessage]="length" [index]="index"
+				(messageEvent)="receiveMessage($event)">
+			</app-pagination>
+		</div>
+	</div>
+</div>

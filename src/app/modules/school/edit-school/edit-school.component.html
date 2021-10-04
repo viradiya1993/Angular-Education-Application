@@ -1,0 +1,143 @@
+<div class="modal-content">
+	<div class="modal-header">
+		<div class="modal-title h4" id="example-modal-sizes-title-lg">
+			<ng-container>
+				<ng-container *ngIf="data && !viewMode">Edit</ng-container>
+				<ng-container *ngIf="!data && !viewMode">Create</ng-container>
+				<ng-container *ngIf="viewMode">View</ng-container>
+				School
+			</ng-container>
+		</div>
+	</div>
+	<div class="overlay overlay-block cursor-default modal-body">
+
+		<ng-container>
+			<form action="#" class="form form-label-right" [formGroup]="formGroup">
+				<div class="form-group row">
+					<div class="col-lg-6">
+						<label class="form-label"> School Name</label>
+						<input type="text" class="form-control form-control-lg form-control-solid" name="schoolName"
+							placeholder="Enter School Name" autocomplete="off" [class.is-invalid]="isControlInvalid('schoolName')"
+							[class.is-valid]="isControlValid('schoolName')" formControlName="schoolName" />
+						<div class="valid-feedback" *ngIf="isControlValid('schoolName')">
+							School name was entered correct
+						</div>
+						<div class="invalid-feedback" *ngIf="controlHasError('required', 'schoolName')">
+							School name is required
+						</div>
+						<div class="invalid-feedback" *ngIf="controlHasError('minlength', 'schoolName')">
+							School name should have at least 10 characters
+						</div>
+						<div class="invalid-feedback" *ngIf="controlHasError('maxlength', 'schoolName')">
+							School name should have maximum 50 characters
+						</div>
+					</div>
+					<div class="col-lg-6">
+						<label class="form-label">School Phone Number</label>
+						<input type="number" class="form-control form-control-lg form-control-solid" name="schoolPhoneNumber"
+							placeholder="Enter School Phone Number" autocomplete="off"
+							[class.is-invalid]="isControlInvalid('schoolPhoneNumber')"
+							[class.is-valid]="isControlValid('schoolPhoneNumber')" formControlName="schoolPhoneNumber" />
+						<div class="valid-feedback" *ngIf="isControlValid('schoolPhoneNumber')">
+							School Number was entered correct
+						</div>
+						<div class="invalid-feedback" *ngIf="controlHasError('required', 'schoolPhoneNumber')">
+							School Number is required
+						</div>
+						<div class="invalid-feedback" *ngIf="controlHasError('min', 'schoolPhoneNumber')">
+							School Number should have at least 10 digit
+						</div>
+						<div class="invalid-feedback" *ngIf="controlHasError('max', 'schoolPhoneNumber')">
+							School Number should have maximum 50 digit
+						</div>
+					</div>
+					<!-- State control -->
+					<div class="col-lg-6">
+						<label>Select State</label>
+						<ng-select placeholder="Select State" [items]="stateArray" bindLabel="name" bindValue="_id"
+							[searchable]="true" (change)="onChangeState($event)" formControlName="stateId">
+						</ng-select>
+						<div class="valid-feedback" *ngIf="isControlValid('stateId')">
+							State is Selected
+						</div>
+						<div class="invalid-feedback" *ngIf="controlHasError('required', 'stateId')">
+							State is required
+						</div>
+					</div>
+					<!-- District COntrol -->
+					<div class="col-lg-6" *ngIf="showDistrict">
+						<label>Select District</label>
+						
+						<ng-select placeholder="Select District" [items]="districtArray" bindLabel="name" bindValue="_id"
+							[searchable]="true" formControlName="districtId">
+						</ng-select>
+						<div class="valid-feedback" *ngIf="isControlValid('districtId')">
+							District is Selected
+						</div>
+						<div class="invalid-feedback" *ngIf="controlHasError('required', 'districtId')">
+							District is required
+						</div>
+					</div>
+					<div class="col-lg-6">
+						<label class="form-label">Enter School Address 1</label>
+						<input type="text" class="form-control form-control-lg form-control-solid" name="addressLine1"
+							placeholder="Address" autocomplete="off" [class.is-invalid]="isControlInvalid('addressLine1')"
+							[class.is-valid]="isControlValid('addressLine1')" formControlName="addressLine1" />
+						<div class="valid-feedback" *ngIf="isControlValid('addressLine1')">
+							Address 1 was entered correct
+						</div>
+						<div class="invalid-feedback" *ngIf="controlHasError('required', 'addressLine1')">
+							Address 1 is required
+						</div>
+						<div class="invalid-feedback" *ngIf="controlHasError('minlength', 'addressLine1')">
+							Address 1 should have at least 5 characters
+						</div>
+						<div class="invalid-feedback" *ngIf="controlHasError('maxlength', 'schoolName')">
+							Address 1 should have maximum 30 characters
+						</div>
+					</div>
+					<div class="col-lg-6">
+						<label class="form-label">Enter Address 2</label>
+						<input type="text" class="form-control form-control-lg form-control-solid" name="addressLine2"
+							placeholder="City Name" autocomplete="off" formControlName="addressLine2" />
+						<!-- <div class="valid-feedback" *ngIf="isControlValid('addressLine2')">
+							Address 2 was entered correct
+						</div> -->
+					</div>
+					<div class="col-lg-6">
+						<label class="form-label">Enter Zipcode</label>
+						<input type="number" class="form-control form-control-lg form-control-solid" name="zipCode"
+							placeholder="Enter Zipcode" autocomplete="off" formControlName="zipCode"
+							[class.is-invalid]="isControlInvalid('zipCode')" [class.is-valid]="isControlValid('zipCode')" />
+						<div class="valid-feedback" *ngIf="isControlValid('zipCode')">
+							Zipcode was entered correct
+						</div>
+						<div class="invalid-feedback" *ngIf="isControlInvalid('zipCode')">
+							Zipcode is required
+						</div>
+					</div>
+
+					<!-- If view mode -->
+					<div class="col-lg-6" *ngIf="viewMode && data.isAssigned === true && data?.users?.length > 0">
+						<!-- Admin -->
+						<label class="form-label">Admin</label>
+						<div class="viewText">
+							{{data.users[0].firstName}} {{data.users[0].lastName}}
+						</div>
+					</div>
+				</div>
+			</form>
+		</ng-container>
+	</div>
+	<div class="modal-footer">
+		<button type="button" class="btn btn-light btn-elevate mr-2" (click)="cancel()">
+			Cancel
+		</button>
+		<ng-container>
+			<button *ngIf="!viewMode" type="submit" class="btn btn-primary btn-elevate" (click)="save()"
+				[disabled]="formGroup.invalid">
+				<i class="fa fa-spin fa-spinner" *ngIf="isLoading"></i> Save
+			</button>
+		</ng-container>
+	</div>
+</div>

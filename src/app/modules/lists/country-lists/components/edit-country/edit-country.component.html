@@ -1,0 +1,64 @@
+<div class="modal-content">
+	<div class="modal-header">
+		<div class="modal-title h4" id="example-modal-sizes-title-lg">
+			<ng-container>
+				<ng-container *ngIf="countryData">Edit</ng-container>
+				<ng-container *ngIf="!countryData">Create</ng-container>
+				Country
+			</ng-container>
+		</div>
+	</div>
+	<div class="cursor-default modal-body">
+		<ng-container>
+			<form action="#" class="form form-label-right" [formGroup]="formGroup">
+				<div class="form-group row">
+					<div class="col-lg-6">
+						<label class="form-label">Enter Name</label>
+						<input type="text" class="form-control form-control-lg form-control-solid" name="countryName"
+							placeholder="Contry Name" autocomplete="off" [class.is-invalid]="isControlInvalid('countryName')"
+							[class.is-valid]="isControlValid('countryName')" formControlName="countryName" />
+						<div class="valid-feedback" *ngIf="isControlValid('countryName')">
+							Contry Name was entered correct
+						</div>
+						<div class="invalid-feedback" *ngIf="controlHasError('required', 'countryName')">
+							Contry Name is required
+						</div>
+						<div class="invalid-feedback" *ngIf="controlHasError('minlength', 'countryName')">
+							Contry Name should have at least 3 symbols
+						</div>
+						<div class="invalid-feedback" *ngIf="controlHasError('maxlength', 'countryName')">
+							Contry Name should have maximum 100 symbols
+						</div>
+					</div>
+					<div class="col-lg-6">
+						<label>Enter Country Code</label>
+						<input type="text" class="form-control form-control-lg form-control-solid" name="countryCode"
+							placeholder="Country Code" autocomplete="off" [class.is-invalid]="isControlInvalid('countryCode')"
+							[class.is-valid]="isControlValid('countryCode')" formControlName="countryCode" />
+						<div class="valid-feedback" *ngIf="isControlValid('countryCode')">
+							Contry Code was entered correct
+						</div>
+						<div class="invalid-feedback" *ngIf="controlHasError('required', 'countryCode')">
+							Contry Code is required
+						</div>
+					</div>
+				</div>
+			</form>
+		</ng-container>
+	</div>
+	<div class="modal-footer">
+		<button type="button" class="btn btn-light btn-elevate mr-2" (click)="close()">
+			Cancel
+		</button>
+		<!-- <ng-container *ngIf="state">
+      <button type="submit" class="btn btn-primary btn-elevate" (click)="save()" [disabled]="formGroup.invalid">
+        Save
+      </button>
+    </ng-container> -->
+		<ng-container *ngIf="!countryData">
+			<button type="submit" class="btn btn-primary btn-elevate" (click)="save()" [disabled]="formGroup.invalid">
+				<i class="fa fa-spin fa-spinner" *ngIf="isLoading"></i> Save
+			</button>
+		</ng-container>
+	</div>
+</div>

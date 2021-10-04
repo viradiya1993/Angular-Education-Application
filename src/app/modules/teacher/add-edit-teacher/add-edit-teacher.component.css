@@ -1,0 +1,18 @@
+::ng-deep .cdk-overlay-container {
+    z-index: 1200 !important;
+  }
+.password-input{
+    position: relative;
+    margin-bottom: 15px;
+}
+.password-input input{
+    margin-bottom: 0 !important;
+}
+.password-input i{
+    position: absolute;
+    right: 15px;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+    height: 15px;
+}

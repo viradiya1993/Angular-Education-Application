@@ -1,0 +1,203 @@
+<div class="inner-body-wrap">
+	<div class="col-12 row">
+		<div class="col-12">
+			<div class="card card-custom">
+				<div class="card-label p-3">
+					<h4 class="font-weight-bolder text-dark m-0">{{headerValue | specialPipe: '-' : ' '}} Details</h4>
+				</div>
+			</div>
+		</div>
+		<div class="col-lg-6">
+
+			<div class="card card-custom mt-4">
+				<div class="card-body">
+					<div class="card card-custom card-stretch" [formGroup]="formGroup">
+						<div class="row">
+							<div class="col-lg-12 col-xl-12">
+								<h5 class="font-weight-bold mb-6">Update Personal Information</h5>
+							</div>
+						</div>
+						<div class="form">
+							<!--begin::Body-->
+							<div class="card-body p-0">
+								<div class="form-group row">
+									<div class="col-lg-6 col-xl-6">
+										<label class="col-form-label">First Name</label>
+										<input class="form-control form-control-lg form-control-solid" type="text"
+											formControlName="firstName" [class.is-invalid]="isControlInvalid('firstName')"
+											[class.is-valid]="isControlValid('firstName')" />
+										<div class="valid-feedback" *ngIf="isControlValid('firstName')">
+											FirstName was entered correct
+										</div>
+
+										<div class="invalid-feedback" *ngIf="controlHasError('required', 'firstName')">
+											FirstName is required
+										</div>
+									</div>
+									<div class="col-lg-6 col-xl-6">
+										<label class="col-form-label">Last Name</label>
+										<input class="form-control form-control-lg form-control-solid" type="text"
+											formControlName="lastName" [class.is-invalid]="isControlInvalid('lastName')"
+											[class.is-valid]="isControlValid('lastName')" />
+										<div class="valid-feedback" *ngIf="isControlValid('lastName')">
+											LastName was entered correct
+										</div>
+
+										<div class="invalid-feedback" *ngIf="controlHasError('required', 'lastName')">
+											LastName is required
+										</div>
+									</div>
+								</div>
+
+								<div class="form-group row">
+									<div class="col-lg-6 col-xl-6">
+										<label class="col-form-label">Country Code</label>
+										<input class="form-control form-control-lg form-control-solid" type="text" value="Bold"
+											formControlName="countryCode" [class.is-invalid]="isControlInvalid('countryCode')"
+											[class.is-valid]="isControlValid('countryCode')" />
+										<div class="valid-feedback" *ngIf="isControlValid('countryCode')">
+											CountryCode was entered correct
+										</div>
+
+										<div class="invalid-feedback" *ngIf="controlHasError('required', 'countryCode')">
+											CountryCode is required
+										</div>
+									</div>
+									<div class="col-lg-6 col-xl-6">
+										<label class="col-form-label">Phone Number</label>
+										<input class="form-control form-control-lg form-control-solid" type="text" value="Bold"
+											formControlName="phoneNumber" [class.is-invalid]="isControlInvalid('phoneNumber')"
+											[class.is-valid]="isControlValid('phoneNumber')" />
+										<div class="valid-feedback" *ngIf="isControlValid('phoneNumber')">
+											Phone Number was entered correct
+										</div>
+
+										<div class="invalid-feedback" *ngIf="controlHasError('required', 'phoneNumber')">
+											Phone Number is required
+										</div>
+									</div>
+								</div>
+							</div>
+							<!--end::Body-->
+						</div>
+						<div class="card-footer bg-white p-0 pt-2 d-flex flex-wrap align-items-center justify-content-end">
+							<div class="m-2">
+								<button type="submit" [disabled]="formGroup.invalid" class="btn btn-success mr-2" (click)="save()">Save
+									Changes</button>
+							</div>
+							<div class="m-2">
+								<button type="button" class="btn btn-secondary" (click)="cancel()">Cancel</button>
+							</div>
+						</div>
+						<!--end::Form-->
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="col-lg-6">
+			<div class="card card-custom mt-4">
+				<div class="card-body">
+					<div class="card card-custom card-stretch" [formGroup]="formChangePassword">
+						<div class="row">
+							<div class="col-lg-9 col-xl-6">
+								<h5 class="font-weight-bold mb-6">Change Password</h5>
+							</div>
+						</div>
+						<div class="form">
+							<!--begin::Body-->
+							<div class="card-body p-0">
+								<div class="form-group row">
+									<div class="col-lg-12 col-xl-6">
+										<label class="col-form-label">Old Password</label>
+										<div class="password-input">
+											<input class="form-control form-control-lg form-control-solid" autocomplete="off"
+												[type]="show_button ? 'text' : 'password'" placeholder="Old Password"
+												formControlName="oldPassword" [class.is-invalid]="isControlPasswordInvalid('oldPassword')" />
+											<i [class]="show_eye ? 'fa fa-eye password_hide_show' : 'fa fa-eye-slash password_hide_show'"
+												(click)="showPassword()"></i>
+										</div>
+										<!--
+												[class.is-invalid]="isControlPasswordInvalid('oldPassword')"
+												[class.is-valid]="isControlPasswordValid('oldPassword')"
+										-->
+										<!-- <div class="valid-feedback" *ngIf="isControlPasswordValid('oldPassword')">
+														Old Password was entered correct
+													</div> -->
+
+										<div class="invalid-feedback" *ngIf="controlPasswordHasError('required', 'oldPassword')">
+											Old Password is required
+										</div>
+									</div>
+
+									<div class="col-lg-12 col-xl-6">
+										<label class="col-form-label">New Password</label>
+										<div class="password-input">
+											<input class="form-control form-control-lg form-control-solid" autocomplete="off"
+												[type]="show_newbutton ? 'text' : 'password'" placeholder="New Password"
+												formControlName="newPassword" [class.is-invalid]="isControlPasswordInvalid('newPassword')" />
+											<i [class]="show_neweye ? 'fa fa-eye password_hide_show' : 'fa fa-eye-slash password_hide_show'"
+												(click)="showNewPassword()"></i>
+										</div>
+										<!-- [class.is-invalid]="isControlPasswordInvalid('newPassword')"
+													[class.is-valid]="isControlPasswordValid('newPassword')"  -->
+										<!-- <div class="valid-feedback" *ngIf="isControlPasswordValid('newPassword')">
+															New Password was entered correct
+														</div> -->
+
+										<div class="invalid-feedback" *ngIf="controlPasswordHasError('required', 'newPassword')">
+											New Password is required
+										</div>
+
+										<div class="invalid-feedback" *ngIf="controlPasswordHasError('minlength', 'newPassword')">
+											New Password should have at least 8 character
+										</div>
+										<div class="invalid-feedback" *ngIf="controlPasswordHasError('maxlength', 'newPassword')">
+											New Password Number should have maximum 50 character
+										</div>
+									</div>
+									<div class="col-lg-12 col-xl-6">
+										<label class="col-form-label">Confirm Password</label>
+										<div class="password-input">
+											<input class="form-control form-control-lg form-control-solid" autocomplete="off"
+												[type]="show_confirmbutton ? 'text' : 'password'" placeholder="Confirm Password"
+												formControlName="confirmPassword" [class.is-invalid]="isControlPasswordInvalid('confirmPassword')"/>
+											<i [class]="show_confirmeye ? 'fa fa-eye password_hide_show' : 'fa fa-eye-slash password_hide_show'"
+												(click)="showConfirmPassword()"></i>
+										</div>
+										<!-- 	[class.is-invalid]="isControlPasswordInvalid('confirmPassword')"
+													[class.is-valid]="isControlPasswordValid('confirmPassword')" -->
+										<!-- <div class="valid-feedback" *ngIf="isControlPasswordValid('confirmPassword')">
+														New Password was entered correct
+													</div> -->
+										<div class="invalid-feedback" *ngIf="controlPasswordHasError('required', 'confirmPassword')">
+											Confirm Password is required
+										</div>
+										<div class="invalid-feedback" *ngIf="f.confirmPassword.value != f.newPassword.value &&
+															f.confirmPassword.value && f.confirmPassword.value != '' ">
+											New Password and Confirm Password must be same
+										</div>
+										<!-- <div class="valid-feedback" *ngIf="isControlPasswordValid('confirmPassword')">
+														New Password was entered correct
+													</div> -->
+									</div>
+								</div>
+
+							</div>
+						</div>
+					</div>
+				</div>
+				<!--end::Body-->
+			</div>
+			<div class="card-footer bg-white p-0 pt-2 d-flex flex-wrap align-items-center justify-content-end">
+				<div class="m-2">
+					<button type="submit" [disabled]="formChangePassword.invalid" class="btn btn-success mr-2"
+						(click)="updatePassword()">Update Password</button>
+				</div>
+				<div class="m-2">
+					<button type="button" class="btn btn-secondary" (click)="cancel()">Cancel</button>
+				</div>
+			</div>
+			<!--end::Form-->
+		</div>
+	</div>
+</div>

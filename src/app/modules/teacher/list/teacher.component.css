@@ -1,0 +1,9 @@
+th.fitwidth {
+    width: 1px;
+    white-space: nowrap;
+}
+td.fitwidth {
+    width: 1px;
+    white-space: nowrap;
+}
+

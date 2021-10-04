@@ -1,0 +1,241 @@
+<div class="modal-content">
+	<div class="modal-header">
+		<div class="modal-title h4" id="example-modal-sizes-title-lg">
+			<ng-container>
+				<ng-container *ngIf="question">Edit</ng-container>
+				<ng-container *ngIf="!question && !viewData">Create</ng-container>
+				<ng-container *ngIf="viewData">View</ng-container>
+				Question
+			</ng-container>
+		</div>
+	</div>
+	<div class="overlay overlay-block cursor-default modal-body">
+		<ng-container>
+			<form action="#" class="form form-label-right" [formGroup]="formGroup">
+				<div class="form-group row">
+					<!-- type -->
+					<div class="col-md-6 col-lg-6">
+						<label class="form-label">Question Type</label>
+						<ng-select class="m-t-1" placeholder="Select a Question" [items]="questionTypeList"
+							(change)="getValues($event)" formControlName="questionType" bindLabel="name"
+							[class.is-invalid]="isControlInvalid('questionType')" [class.is-valid]="isControlValid('questionType')"
+							bindValue="value" [searchable]="true">
+						</ng-select>
+						<div class="valid-feedback" *ngIf="isControlValid('questionType')">
+							Question Selected Correctly
+						</div>
+						<div class="invalid-feedback" *ngIf="controlHasError('required', 'questionType')">
+							Question is Required
+						</div>
+					</div>
+					<!-- Answer type -->
+					<div class="col-md-6 col-lg-6">
+						<label class="form-label">Answer Type</label>
+						<ng-select class="m-t-1" placeholder="Select an Answer Type" [items]="answerTypeList"
+							formControlName="answerType" bindLabel="name" [class.is-invalid]="isControlInvalid('answerType')"
+							[class.is-valid]="isControlValid('answerType')" bindValue="value" [searchable]="true">
+						</ng-select>
+						<div class="valid-feedback" *ngIf="isControlValid('answerType')">
+							Answer Type Selected Correctly
+						</div>
+						<div class="invalid-feedback" *ngIf="controlHasError('required', 'answerType')">
+							Answer Type is Required
+						</div>
+					</div>
+					<!-- questions -->
+					<div class="col-md-6 col-lg-6">
+						<label class="form-label">Question</label>
+						<input type="text" class="form-control form-control-lg form-control-solid m-b-0" name="question"
+							placeholder="Enter Question Here" autocomplete="off" [class.is-invalid]="isControlInvalid('question')"
+							[class.is-valid]="isControlValid('question')" formControlName="question" />
+						<div class="valid-feedback" *ngIf="isControlValid('question')">
+							Question was entered correct
+						</div>
+						<div class="invalid-feedback" *ngIf="controlHasError('required', 'question')">
+							Question is Required
+						</div>
+						<div class="invalid-feedback" *ngIf="controlHasError('minlength', 'question')">
+							Question should have at least 3 characters
+						</div>
+						<div class="invalid-feedback" *ngIf="controlHasError('maxlength', 'question')">
+							Question should have maximum 50 characters
+						</div>
+					</div>
+
+					<!-- Is Default Question -->
+					<div class="col-md-6 col-lg-6" *ngIf="showDefaultOption">
+						<label class="form-label"> Defalut Question</label>
+						<div class="radiobox-form">
+							<div class="row col-lg-12">
+								<div class="col-lg-6">
+									<label for="default-yess" class="custom-checkbox">
+										<input type="radio" class="form-check-input" id="default-yess" value="true"
+											formControlName="default" (change)="defalutChangeTrue($event)">
+										<span class="custom-checkbox-span"> Yes </span>
+									</label>
+								</div>
+								<div class="col-lg-6">
+									<label for="default-noo" class="custom-checkbox">
+										<input type="radio" class="form-check-input" id="default-noo" value="false"
+											formControlName="default" (change)="defalutChangeFalse($event)">
+										<span class="custom-checkbox-span"> No </span>
+									</label>
+								</div>
+							</div>
+						</div>
+					</div>
+					<!-- Is Assigned -->
+					<div class="col-md-6 col-lg-6" *ngIf="showIsAssigned">
+						<label class="form-label"> Assigne to All Schools</label>
+						<div class="radiobox-form">
+							<div class="row col-lg-12">
+								<div class="col-lg-6">
+									<label for="checked-yess" class="custom-checkbox">
+										<input type="radio" class="form-check-input" id="checked-yess" value="true"
+											formControlName="isAssignAllSchool" (change)="isAssignedChangeTrue($event)">
+										<span class="custom-checkbox-span"> Yes </span>
+									</label>
+								</div>
+								<div class="col-lg-6">
+									<label for="checked-noo" class="custom-checkbox">
+										<input type="radio" class="form-check-input" id="checked-noo" value="false"
+											formControlName="isAssignAllSchool" (change)="isAssignedChangeFalse($event)">
+										<span class="custom-checkbox-span"> No </span>
+									</label>
+								</div>
+							</div>
+						</div>
+					</div>
+					<!-- Is Required -->
+					<div class="col-md-6 col-lg-6" *ngIf="showIsAssigned">
+						<label class="form-label"> Is this Required Question ?</label>
+						<div class="radiobox-form">
+							<div class="row col-lg-12">
+								<div class="col-lg-6">
+									<label for="checked-yess" class="custom-checkbox">
+										<input type="radio" class="form-check-input" id="checked-req-yess" value="true"
+											formControlName="isRequired">
+										<span class="custom-checkbox-span"> Yes </span>
+									</label>
+								</div>
+								<div class="col-lg-6">
+									<label for="checked-noo" class="custom-checkbox">
+										<input type="radio" class="form-check-input" id="checked-req-noo" value="false"
+											formControlName="isRequired">
+										<span class="custom-checkbox-span"> No </span>
+									</label>
+								</div>
+							</div>
+						</div>
+					</div>
+					<!-- Is Multiple -->
+					<div class="col-md-6 col-lg-6" *ngIf="showIsAssigned && showIsMultiple">
+						<label class="form-label"> Does this Question have multiple Options?</label>
+						<div class="radiobox-form">
+							<div class="row col-lg-12">
+								<div class="col-lg-6">
+									<label for="checked-yess" class="custom-checkbox">
+										<input type="radio" class="form-check-input" id="checked-mul-yess" value="true"
+											formControlName="isSelectMultiple">
+										<span class="custom-checkbox-span"> Yes </span>
+									</label>
+								</div>
+								<div class="col-lg-6">
+									<label for="checked-noo" class="custom-checkbox">
+										<input type="radio" class="form-check-input" id="checked-mul-noo" value="false"
+											formControlName="isSelectMultiple">
+										<span class="custom-checkbox-span"> No </span>
+									</label>
+								</div>
+							</div>
+						</div>
+					</div>
+					<!-- Is Assigned -->
+					<div class="col-md-6 col-lg-6" *ngIf="showIsAssigned && showAnswerOption">
+						<label class="form-label"> Comment is Required ?</label>
+						<div class="radiobox-form">
+							<div class="row col-lg-12">
+								<div class="col-lg-6">
+									<label for="comment-yess" class="custom-checkbox">
+										<input type="radio" class="form-check-input" id="comment-yess" value="true"
+											formControlName="otherAnsRequired" (change)="isCommentTrue($event)">
+										<span class="custom-checkbox-span"> Yes </span>
+									</label>
+								</div>
+								<div class="col-lg-6">
+									<label for="comment-noo" class="custom-checkbox">
+										<input type="radio" class="form-check-input" id="comment-noo" value="false"
+											formControlName="otherAnsRequired" (change)="isCommentFalse($event)">
+										<span class="custom-checkbox-span"> No </span>
+									</label>
+								</div>
+							</div>
+						</div>
+					</div>
+					<!-- OPtiosns-->
+					<div class="col-md-6 col-lg-6" *ngIf="showAnswerOption">
+						<label class="form-label">Answer Options</label>
+						<ng-select placeholder="Enter options to add" [items]="blankArray" formControlName="option"
+							(change)="setArrayForOther($event)" bindLabel="label" bindValue="label" [multiple]="true"
+							[searchable]="true" addTagText="Create New" [class.is-invalid]="isControlInvalid('option')"
+							[class.is-valid]="isControlValid('option')" [addTag]="true">
+						</ng-select>
+						<div class="valid-feedback" *ngIf="isControlValid('option')">
+							Answer Options was entered correct
+						</div>
+						<div class="invalid-feedback" *ngIf="controlHasError('required', 'option')">
+							Answer Options is Required
+						</div>
+					</div>
+					<!-- required Value -->
+					<div class="col-md-6 col-lg-6" *ngIf="showRequiredValue">
+						<label class="form-label">Value for Other Option</label>
+						<ng-select class="m-t-1" placeholder="Select an option" formControlName="otherAnsRequiredValue"
+							[class.is-invalid]="isControlInvalid('otherAnsRequiredValue')"
+							[class.is-valid]="isControlValid('otherAnsRequiredValue')">
+							<ng-option *ngFor="let val of otherOptionArray" [value]="val">
+								{{val}}
+							</ng-option>
+						</ng-select>
+						<div class="valid-feedback" *ngIf="isControlValid('otherAnsRequiredValue')">
+							Other Option Selected Correctly
+						</div>
+						<div class="invalid-feedback" *ngIf="controlHasError('required', 'otherAnsRequiredValue')">
+							Other Option is Required
+						</div>
+					</div>
+					<!-- School ID -->
+					<div class="col-md-6 col-lg-6" *ngIf="showSchool">
+						<label>Select School</label>
+						<ng-select placeholder="Select School" [items]="schoolList" [multiple]="true"
+							formControlName="assignedSchool" bindLabel="schoolName" bindValue="_id" [searchable]="true"
+							addTagText="Create New" [class.is-invalid]="isControlInvalid('assignedSchool')"
+							[class.is-valid]="isControlValid('assignedSchool')">
+						</ng-select>
+						<div class="valid-feedback" *ngIf="isControlValid('assignedSchool')">
+							School is Selected
+						</div>
+						<div class="invalid-feedback" *ngIf="controlHasError('required', 'assignedSchool')">
+							School is required
+						</div>
+					</div>
+				</div>
+			</form>
+		</ng-container>
+	</div>
+	<div class="modal-footer">
+		<button type="button" class="btn btn-light btn-elevate mr-2" (click)="cancel()">
+			Cancel
+		</button>
+		<ng-container>
+			<button type="submit" class="btn btn-primary btn-elevate" (click)="save('save')" [disabled]="formGroup.invalid"
+				*ngIf="!editable && !viewData">
+				<i class="fa fa-spin fa-spinner" *ngIf="isLoading"></i>Save
+			</button>
+			<button type="submit" class="btn btn-primary btn-elevate" (click)="save('update')" *ngIf="editable"
+				[disabled]="formGroup.invalid">
+				<i class="fa fa-spin fa-spinner" *ngIf="isLoading"></i>Update
+			</button>
+		</ng-container>
+	</div>
+</div>

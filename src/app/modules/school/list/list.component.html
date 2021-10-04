@@ -1,0 +1,140 @@
+<div class="inner-body-wrap">
+	<div class="card card-custom gutter-b">
+		<div class="card-header">
+			<div class="card-title">
+				<h3 class="card-label">School List</h3>
+			</div>
+			<div class="card-toolbar">
+				<button type="button" class="btn btn-primary" (click)="create()" *ngIf="showFilterAndPagination">Add
+					School</button>
+			</div>
+		</div>
+		<div class="card-body">
+			<!-- begin: Filtration form -->
+			<div class="form form-label-right">
+				<div class="form-group row">
+					<div class="col-lg-12">
+						<div class="row" [formGroup]="searchGroup" *ngIf="showFilterAndPagination">
+
+							<div class="col-lg-3">
+								<small class="form-text text-muted">Search in School Name</small>
+								<input type="text" class="form-control" name="searchText" placeholder="Search"
+									(keyup)="search($event.target.value)" value="" formControlName="searchText" />
+							</div>
+
+							<div class="col-lg-3">
+								<small class="form-text text-muted">Filter by State</small>
+								<ng-select placeholder="Select State" [items]="stateList" bindLabel="name"
+									bindValue="_id" [searchable]="true" (change)="stateChange($event)">
+								</ng-select>
+							</div>
+							<div class="col-lg-3">
+								<small class="form-text text-muted">Filter by District</small>
+								<ng-select placeholder="Select District" [items]="districtList" bindLabel="name"
+									bindValue="_id" [searchable]="true" (change)="districtChange($event)">
+								</ng-select>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- end: Filtration form -->
+
+
+
+			<!-- begin:Table -->
+			<div class="table-responsive angular-bootstrap-table">
+				<table class="table table-head-custom table-vertical-center overflow-hidden" *ngIf="length > 0">
+					<thead>
+						<th>
+							School Name
+						</th>
+						<!-- <th>
+							Country
+						</th>
+						<th>
+							State
+						</th>
+						<th>
+							City
+						</th> -->
+						<th>
+							School Assigned
+						</th>
+						<th>
+							Phone No.
+						</th>
+						<th>
+							Address
+						</th>
+
+						<th>Actions</th>
+					</thead>
+					<tbody>
+						<tr *ngFor="let school of schoolList">
+
+							<td>{{ school?.schoolName | uppercase | truncate: [15, '...']}}</td>
+							<!-- <td>{{ school?.country[0]?.name | uppercase}}</td>
+							<td>{{ school?.state[0]?.name | uppercase}}</td>
+							<td>{{ school?.city[0]?.name | uppercase}}</td> -->
+							<td *ngIf="school.isAssigned === true">Assigned</td>
+							<td *ngIf="school.isAssigned === false">Not Assigned</td>
+							<td>{{ school.schoolPhoneNumber }}</td>
+							<td>{{ school?.addressLine1 | uppercase | truncate: [15, '...']}} </td>
+
+							<td class="m-0">
+								<div class="d-flex align-items-center">
+
+									<button title="Add Sub Admin"
+										class="btn btn-icon btn-light btn-hover-primary btn-sm mx-1"
+										[disabled]="(school?.isDeleted)" (click)="createSubAdmin(school)">
+										<i class="material-icons">person_add</i>
+									</button>
+
+									<button title="Assing School Admin" *ngIf="(school?.isAssigned !== true)"
+										class="btn btn-icon btn-light btn-hover-primary btn-sm mx-1"
+										(click)="AssignSchool(school)">
+										<i class="material-icons">assignment_return</i>
+									</button>
+
+									<button title="UnAssing School Admin" *ngIf="(school?.isAssigned === true)"
+										class="btn btn-icon btn-light btn-hover-primary btn-sm mx-1"
+										(click)="unAssignSchool(school)">
+										<i class="material-icons">assignment_late</i>
+									</button>
+									<button title="View School"
+										class="btn btn-icon btn-light btn-hover-primary btn-sm mx-1"
+										[disabled]="(school?.isDeleted)" (click)="view(school)">
+										<i class="material-icons">visibility</i>
+									</button>
+									<button title="Edit School"
+										class="btn btn-icon btn-light btn-hover-primary btn-sm mx-1"
+										[disabled]="(school?.isDeleted)" (click)="edit(school)">
+										<span [inlineSVG]="'./assets/media/svg/Write.svg'" cacheSVG="true"
+											class="svg-icon svg-icon-md svg-icon-primary">
+										</span>
+									</button>
+
+									<!-- <button title="Delete School" class="btn btn-icon btn-light btn-hover-danger btn-sm"
+										[disabled]="(school?.isDeleted)" (click)="delete(school._id)">
+										<span [inlineSVG]="'./assets/media/svg/Trash.svg'" cacheSVG="true"
+											class="svg-icon svg-icon-md svg-icon-danger">
+										</span>
+									</button> -->
+								</div>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+				<div *ngIf="length == 0" class="text-center font16 mt15 mb15 pt-4">
+					School record not found
+					<hr>
+				</div>
+			</div>
+			<!-- end: Table -->
+			<app-pagination *ngIf="length && showFilterAndPagination" [childMessage]="length" [index]="index"
+				(messageEvent)="receiveMessage($event)">
+			</app-pagination>
+		</div>
+	</div>
+</div>

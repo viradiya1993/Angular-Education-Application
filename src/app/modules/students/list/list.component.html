@@ -1,0 +1,98 @@
+<div class="inner-body-wrap">
+	<div class="card card-custom gutter-b">
+		<div class="card-header">
+			<div class="card-title">
+				<h3 class="card-label">Student List</h3>
+			</div>
+			<div class="card-toolbar">
+				<button type="button" class="btn btn-primary" (click)="create()">Add Student</button>
+			</div>
+		</div>
+		<div class="card-body">
+			<!-- begin: Filtration form -->
+			<div class="form form-label-right">
+				<div class="form-group row">
+					<div class="col-lg-12">
+						<form action="#" class="form form-label-right" [formGroup]="formGroup">
+							<div class="row">
+								<div class="col-lg-4">
+									<small class="form-text text-muted">Search in Student Name</small>
+									<input type="text" class="form-control" name="searchText" placeholder="Search" value=""
+										(keyup)="search($event.target.value)" formControlName="search" />
+								</div>
+								<div class="col-lg-4">
+									<small class="form-text text-muted">Filter by School</small>
+									<ng-select placeholder="Select School" [items]="schoolList" bindLabel="schoolName" bindValue="_id"
+										[searchable]="true" formControlName="defaultSchoolId" (change)="filterSchool($event)">
+									</ng-select>
+
+
+								</div>
+								<div class="col-lg-4">
+									<small class="form-text text-muted">Filter by Status</small>
+									<ng-select placeholder="Select status" [items]="statusList" bindLabel="name" bindValue="value"
+										formControlName="status" (change)="studentStatus($event)">
+									</ng-select>
+								</div>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+			<!-- end: Filtration form -->
+			<!-- begin:Table -->
+			<div class="table-responsive angular-bootstrap-table">
+				<table class="table table-head-custom table-vertical-center overflow-hidden" *ngIf="length > 0">
+					<thead>
+						<th>Student Name</th>
+						<th>School</th>
+						<th>Sas Id</th>
+						<th>Program Type</th>
+						<th>Language</th>
+						<th>Status</th>
+						<th>Actions</th>
+					</thead>
+					<tbody>
+						<tr *ngFor="let student of studentsList; let i = index;">
+							<td>{{student?.studentName | uppercase}}</td>
+							<td>{{student?.schoonName| uppercase}}</td>
+							<td>{{student?.sasId}}</td>
+							<td>{{student?.programType}}</td>
+							<td>{{student?.primaryLanguage}}</td>
+							<td>{{student?.isActivated ? 'InActive' : 'Active'}}</td>
+							<td>
+								<div class="d-flex align-items-center">
+									<button title="Change Status" class="btn btn-icon btn-light btn-hover-primary btn-sm mx-3"
+										(click)="activeDeacticveStudents(student?._id, student?.isActivated)">
+										<i class="material-icons">subject</i>
+									</button>
+
+									<button title="View Student" class="btn btn-icon btn-light btn-hover-primary btn-sm mx-1"
+										(click)="view(student)">
+										<i class="material-icons">visibility</i>
+									</button>
+
+									<button title="Edit student" class="btn btn-icon btn-light btn-hover-primary btn-sm mx-3"
+										(click)="edit(student)" [disabled]="(student?.isActivated)">
+										<i class="material-icons">edit</i>
+									</button>
+
+									<button title="Delete student" class="btn btn-icon btn-light btn-hover-danger btn-sm"
+										(click)="delete(student._id)" [disabled]="(student?.isActivated)">
+										<i class="material-icons">delete</i>
+									</button>
+								</div>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+				<div *ngIf="length == 0" class="text-center font16 mt15 mb15 pt-4">
+					Student record not found
+					<hr>
+				</div>
+			</div>
+			<app-pagination class="d-flex justify-content-between align-items-center flex-wrap" *ngIf="length"
+				[childMessage]="length" [index]="index" (messageEvent)="receiveMessage($event)"></app-pagination>
+		</div>
+	</div>
+</div>

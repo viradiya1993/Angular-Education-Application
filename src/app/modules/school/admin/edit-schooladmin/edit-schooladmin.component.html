@@ -1,0 +1,130 @@
+<div class="modal-content">
+	<div class="modal-header">
+		<div class="modal-title h4" id="example-modal-sizes-title-lg">
+			<ng-container>
+				<ng-container *ngIf="data">Edit</ng-container>
+				<ng-container *ngIf="!data">Create</ng-container>
+				School Admin
+			</ng-container>
+		</div>
+	</div>
+	<div class="overlay overlay-block cursor-default modal-body">
+		<!-- <ng-container>
+			<div class="overlay-layer bg-transparent">
+				<div class="spinner spinner-lg spinner-success"></div>
+			</div>
+		</ng-container> -->
+		<ng-container>
+			<form action="#" class="form form-label-right" [formGroup]="formGroupData">
+				<div class="form-group row">
+					<div class="col-md-4 col-lg-4">
+						<label class="form-label"> First name</label>
+						<input type="text" class="form-control form-control-lg form-control-solid" name="firstName"
+							placeholder="Enter First Name" autocomplete="off" [class.is-invalid]="isControlInvalid('firstName')"
+							[class.is-valid]="isControlValid('firstName')" formControlName="firstName" />
+						<div class="valid-feedback" *ngIf="isControlValid('firstName')">
+							First name was entered correct
+						</div>
+						<div class="invalid-feedback" *ngIf="controlHasError('required', 'firstName')">
+							First name is required
+						</div>
+						<div class="invalid-feedback" *ngIf="controlHasError('minlength', 'firstName')">
+							First name should have at least 3 symbols
+						</div>
+						<div class="invalid-feedback" *ngIf="controlHasError('maxlength', 'firstName')">
+							First name should have maximum 100 symbols
+						</div>
+					</div>
+					<div class="col-md-4 col-lg-4">
+						<label class="form-label"> Last name</label>
+						<input type="text" class="form-control form-control-lg form-control-solid" name="lastName"
+							placeholder="Enter Last Name" autocomplete="off" [class.is-invalid]="isControlInvalid('lastName')"
+							[class.is-valid]="isControlValid('lastName')" formControlName="lastName" />
+						<div class="valid-feedback" *ngIf="isControlValid('lastName')">
+							Last name was entered correct
+						</div>
+						<div class="invalid-feedback" *ngIf="controlHasError('required', 'lastName')">
+							Last name is required
+						</div>
+						<div class="invalid-feedback" *ngIf="controlHasError('minlength', 'lastName')">
+							Last name should have at least 3 symbols
+						</div>
+						<div class="invalid-feedback" *ngIf="controlHasError('maxlength', 'lastName')">
+							Last name should have maximum 100 symbols
+						</div>
+					</div>
+					<div class="col-md-4 col-lg-4">
+						<label>Phone Number</label>
+						<input type="text" class="form-control form-control-lg form-control-solid" name="phoneNumber"
+							placeholder="Enter Phone Number" autocomplete="off" [class.is-invalid]="isControlInvalid('phoneNumber')"
+							[class.is-valid]="isControlValid('phoneNumber')" formControlName="phoneNumber" />
+						<div class="valid-feedback" *ngIf="isControlValid('phoneNumber')">
+							Phone Number was entered correct
+						</div>
+						<div class="invalid-feedback" *ngIf="controlHasError('required', 'phoneNumber')">
+							Phone Number is required
+						</div>
+						<div class="invalid-feedback" *ngIf="controlHasError('min', 'phoneNumber')">
+							Phone Number should have at least 10 digit
+						</div>
+						<div class="invalid-feedback" *ngIf="controlHasError('max', 'phoneNumber')">
+							Phone Number should have at least 50 digit
+						</div>
+					</div>
+					<div class="col-md-6 col-lg-6" *ngIf="!data">
+						<label> Email </label>
+						<input type="email" class="form-control form-control-lg form-control-solid" name="email"
+							placeholder="Enter Email" autocomplete="off" [class.is-invalid]="isControlInvalid('email')"
+							[class.is-valid]="isControlValid('email')" formControlName="email" />
+						<div class="valid-feedback" *ngIf="isControlValid('email')">
+							Email was entered correct
+						</div>
+						<div class="invalid-feedback" *ngIf="controlHasError('required', 'email')">
+							Email is required
+						</div>
+					</div>
+					<div class="col-md-6 col-lg-6" *ngIf="!data">
+						<label> Password </label>
+						<div class="password-input">
+							<input [type]="show_button ? 'text' : 'password'" class="form-control form-control-lg form-control-solid"
+								name="password" placeholder="Enter Password" autocomplete="off" formControlName="password"
+								[class.is-invalid]="isControlInvalid('password')" />
+							<i [class]="show_eye ? 'fa fa-eye password_hide_show' : 'fa fa-eye-slash password_hide_show'"
+								(click)="showPassword()"></i>
+						</div>
+						<!-- [class.is-invalid]="isControlInvalid('password')"
+							[class.is-valid]="isControlValid('password')" -->
+						<!-- <div class="valid-feedback" *ngIf="isControlValid('password')">
+							Password was entered correct 
+						</div> -->
+						<div class="invalid-feedback" *ngIf="controlHasError('required', 'password')">
+							Password is required
+						</div>
+						<div class="invalid-feedback" *ngIf="controlHasError('minlength', 'password')">
+							Password should have at least 8 symbols
+						</div>
+						<div class="invalid-feedback" *ngIf="controlHasError('maxlength', 'password')">
+							Password should have maximum 50 symbols
+						</div>
+					</div>
+				</div>
+			</form>
+		</ng-container>
+	</div>
+	<div class="modal-footer">
+		<button type="button" class="btn btn-light btn-elevate mr-2" (click)="cancel()">
+			Cancel
+		</button>
+		<ng-container>
+			<button type="submit" class="btn btn-primary btn-elevate" (click)="save()" [disabled]="formGroupData.invalid"
+				*ngIf="!editable">
+				<i class="fa fa-spin fa-spinner" *ngIf="isLoading"></i> Save
+			</button>
+			<button type="submit" class="btn btn-primary btn-elevate" (click)="save()" *ngIf="editable">
+				<i class="fa fa-spin fa-spinner" *ngIf="isLoading"></i> Save
+			</button>
+		</ng-container>
+	</div>
+</div>
+
+

@@ -1,0 +1,122 @@
+<div class="inner-body-wrap">
+	<div class="card card-custom gutter-b">
+		<div class="card-header">
+			<div class="card-title">
+				<h3 class="card-label">Questionnaire List</h3>
+			</div>
+			<div class="card-toolbar">
+				<button type="button" class="btn btn-primary" (click)="create()">Add Questionnaire</button>
+			</div>
+		</div>
+		<div class="card-body">
+			<!-- begin: Filtration form -->
+			<div class="form form-label-right">
+				<div class="form-group row">
+					<div class="col-lg-12 col-12">
+						<div class="row">
+							<!-- <div class="col-lg-3">
+                                <small class="form-text text-muted">Search in question name</small>
+                                <input type="text" class="form-control" name="searchText" placeholder="Search" value=""
+                                    (keyup)="search($event.target.value)" />
+                            </div> -->
+
+
+							<div class="col-lg-3">
+								<small class="form-text text-muted">Filter by School</small>
+								<ng-select placeholder="Select School" [items]="schoolList" bindLabel="schoolName"
+									bindValue="_id" (change)="filterSchool($event)">
+								</ng-select>
+							</div>
+
+							<div class="col-lg-3">
+								<small class="form-text text-muted">Filter by Status</small>
+								<ng-select placeholder="Select status" [items]="statusList" bindLabel="name"
+									bindValue="value" (change)="questionsStatus($event)">
+								</ng-select>
+							</div>
+
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- end: Filtration form -->
+
+
+
+			<!-- begin:Table -->
+			<div class="table-responsive angular-bootstrap-table">
+				<table class="table table-head-custom table-vertical-center overflow-hidden" *ngIf="length > 0">
+					<thead>
+						<th>
+							Question Name
+						</th>
+						<th>
+							Question Type
+						</th>
+
+						<th>
+							Assigned To all School
+						</th>
+						<th>
+							Default Question
+						</th>
+						<th>
+							Options
+						</th>
+						<th>Status</th>
+						<th>Actions</th>
+					</thead>
+					<tbody>
+						<tr *ngFor="let question of questionList">
+
+							<td>{{ question?.question | titlecase}}</td>
+							<td>{{question?.questionType | titlecase}}</td>
+
+							<td *ngIf="question?.isAssignAllSchool == true">True </td>
+							<td *ngIf="question?.isAssignAllSchool == false">False </td>
+							<td *ngIf="question?.default == true">Yes </td>
+							<td *ngIf="question?.default == false">No </td>
+							<td *ngIf="question?.option">
+								<ng-container *ngFor="let option of question?.option">
+									{{ option }} <br />
+								</ng-container>
+							</td>
+							<td *ngIf="!question?.option">
+								N.A
+							</td>
+							<td>{{question?.isActivated === false ? 'Active' : 'InActive'}}</td>
+							<td class="fitwidth">
+								<!-- <a title="change status" class="btn btn-icon btn-light btn-hover-primary btn-sm mx-3"
+									(click)="activeDeacticveQuestion(question?._id, question?.isActivated)">
+									<i class="material-icons">subject</i>
+								</a> -->
+								<div class="d-flex align-items-center">
+									<button title="Edit Questionnaire" [disabled]="(question?.isDeleted)"
+										class="btn btn-icon btn-light btn-hover-primary btn-sm mx-3"
+										(click)="edit(question)">
+										<i class="material-icons">edit</i>
+									</button>
+
+									<button title="Delete Questionnaire" [disabled]="(question?.isDeleted)"
+										class="btn btn-icon btn-light btn-hover-danger btn-sm"
+										(click)="delete(question._id)">
+										<i class="material-icons">delete</i>
+									</button>
+								</div>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+				<div *ngIf="length == 0" class="text-center font16 mt15 mb15 pt-4">
+					Questionnaire record not found
+					<hr>
+				</div>
+			</div>
+			<app-pagination *ngIf="length" [childMessage]="length" [index]="index"
+				(messageEvent)="receiveMessage($event)">
+			</app-pagination>
+			<!-- end: Table -->
+
+		</div>
+	</div>
+</div>

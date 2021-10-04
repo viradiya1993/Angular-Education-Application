@@ -1,0 +1,10 @@
+<div class="pagenation_dropdown">
+    <mat-paginator
+      (page)="getNext($event)"
+      [length]="childMessage"
+      [pageSize]="pageSize"
+      [pageIndex]="index"
+      [pageSizeOptions]="pageSizeOptions">
+    </mat-paginator>
+</div>
+    

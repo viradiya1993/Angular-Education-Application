@@ -1,0 +1,4 @@
+
+.wrapper {display: -webkit-box;display: -ms-flexbox;display: flex;-ms-flex-wrap: wrap;flex-wrap: wrap;-webkit-box-pack:justify;-ms-flex-pack:justify;justify-content:space-between;height: 100%;}
+.main-panel.ps {margin: 0 20px;width: calc(100% - 305px);position: relative;}
+.main-panel.active {width: calc(100% - 110px); -webkit-transition: all 0.5s ease; -o-transition: all 0.5s ease; transition: all 0.5s ease;}

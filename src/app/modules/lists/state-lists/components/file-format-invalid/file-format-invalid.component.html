@@ -1,0 +1,64 @@
+<ng-container *ngIf="isLoading">
+  <div class="progress progress-modal">
+    <div class="progress-bar progress-bar-striped progress-bar-animated bg-primary" role="progressbar"
+      style="width: 100%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
+  </div>
+</ng-container>
+
+<div class="modal-header">
+  <div class="modal-title h4" *ngIf="!header">Invalid Format</div>
+  <div class="modal-title h4" *ngIf="header">Invalid Header and Values</div>
+
+</div>
+<div class="modal-body">
+
+  <ng-container *ngIf="!isLoading">
+    <h6 *ngIf="!header" class="label-light-danger">Please Select a format which has CSV extension</h6>
+    <h6 *ngIf="header" class="label-light-danger">Selected File Should Contains these Values!</h6>
+
+    <br>
+    <br>
+    <br>
+    <div class="table-responsive angular-bootstrap-table">
+      <table class="table table-head-custom table-vertical-center overflow-hidden" *ngIf="header">
+        <thead>
+          <th>
+            State
+          </th>
+          <th>
+            District
+          </th>
+        </thead>
+        <tbody>
+          <tr>
+            <td>
+              NEW YORK
+            </td>
+            <td>
+              ALASKA
+            </td>
+          </tr>
+      </table>
+
+
+
+
+
+    </div>
+  </ng-container>
+</div>
+
+<div class="modal-footer">
+  <div style="float: left;">
+    <a [href]="fileURL" target="_blank" class="btn btn-border" download="demo.csv">
+      <button class="btn btn-primary">Check
+        File format
+      </button>
+    </a>
+  </div>
+  <div>
+    <button type="button" class="btn btn-danger btn-elevate" (click)="modal.close()">
+      Okay
+    </button>&nbsp;
+  </div>
+</div>

@@ -1,0 +1,81 @@
+<div class="inner-body-wrap">
+	<div class="card card-custom gutter-b">
+		<div class="card-header">
+			<div class="card-title">
+				<h3 class="card-label">Endorsment List</h3>
+			</div>
+			<div class="card-toolbar">
+				<button type="button" class="btn btn-primary" (click)="create()">Add Endorsment</button>
+			</div>
+		</div>
+		<div class="card-body">
+			<!-- begin: Filtration form -->
+			<div class="form form-label-right">
+				<div class="form-group row">
+					<div class="col-lg-12 col-12">
+						<div class="row">
+							<div class="col-lg-5">
+								<small class="form-text text-muted">Search in Endorsment Number or Title</small>
+								<input type="text" class="form-control" name="searchText" placeholder="Search" value=""
+									(keyup)="search($event.target.value)" />
+							</div>
+
+							<div class="col-lg-4">
+								<small class="form-text text-muted">Filter by Status</small>
+								<ng-select placeholder="Select status" [items]="statusList" bindLabel="name"
+									bindValue="value" (change)="endrosmentStatus($event)">
+								</ng-select>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- end: Filtration form -->
+			<!-- begin:Table -->
+			<div class="table-responsive angular-bootstrap-table">
+				<table class="table table-head-custom table-vertical-center overflow-hidden" *ngIf="length > 0">
+					<thead>
+						<th>Endorsment Number</th>
+						<th>Endorsment Title</th>
+						<th>Status</th>
+						<th>Actions</th>
+					</thead>
+					<tbody>
+						<tr *ngFor="let endorsments of endorsmentsList; let i = index;">
+							<td>{{endorsments?.number}}</td>
+							<td>{{endorsments?.name | uppercase}}</td>
+							<td>{{endorsments?.isActivated === false ? 'Active' : 'InActive'}}</td>
+							<td>
+								<div class="d-flex align-items-center">
+									<a title="change status"
+										class="btn btn-icon btn-light btn-hover-primary btn-sm mx-3"
+										(click)="activeDeacticveEndorsments(endorsments?._id, endorsments?.isActivated)">
+										<i class="material-icons">subject</i>
+									</a>
+
+									<button title="Edit endorsments"
+										class="btn btn-icon btn-light btn-hover-primary btn-sm mx-3"
+										(click)="edit(endorsments)" [disabled]="(endorsments?.isActivated)">
+										<i class="material-icons">edit</i>
+									</button>
+
+									<button title="Delete endorsments"
+										class="btn btn-icon btn-light btn-hover-danger btn-sm"
+										(click)="delete(endorsments._id)" [disabled]="(endorsments?.isActivated)">
+										<i class="material-icons">delete</i>
+									</button>
+								</div>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+				<div *ngIf="length == 0" class="text-center font16 mt15 mb15 pt-4">
+					Endorsments record not found
+					<hr>
+				</div>
+			</div>
+			<app-pagination class="d-flex justify-content-between align-items-center flex-wrap" *ngIf="length"
+				[childMessage]="length" [index]="index" (messageEvent)="receiveMessage($event)"></app-pagination>
+		</div>
+	</div>
+</div>

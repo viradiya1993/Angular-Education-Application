@@ -1,0 +1,63 @@
+<nav class="navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top">
+    <div class="container-fluid">
+        <div class="main-nav-title">
+            <h5 class="m-0 pl-3">Welcome {{role | specialPipe: '-' : ' '}}</h5>
+        </div>
+        <div class="collapse navbar-collapse justify-content-end" id="navigation">
+            <ul class="navbar-nav">
+                <li class="nav-item dropdown">
+                    <div style="padding:20px; color: white;" class="font-weight-bold m-0 center-align">
+                        Hello {{ userData?.firstName }}
+                        <a ejs-button id="toggle" class="e-btn e-info" (click)="toggleClick()">
+                            <i class="material-icons">person</i>
+                        </a>
+                    </div>
+                </li>
+            </ul>
+        </div>
+
+    </div>
+</nav>
+<ejs-sidebar *ngIf="showSidebar" id="default-sidebar" #sidebar (open)="open($event)" (close)="close($event)">
+    <div class="sidebar-content">
+        <div class="title d-flex align-items-center justify-content-between">
+            <h4 class="font-weight-bold m-0">
+                User Profile
+            </h4>
+            <!-- <button class="close-btn" onclick="closeClick()">
+                x
+            </button> -->
+        </div>
+        <div>
+
+            <div class="sub-title d-flex align-items-center mt-5">
+                <div class="symbol symbol-100 mr-5">
+                    <!-- <img src="./assets/media/users/300_20.jpg" alt=""> -->
+                    <!-- <div class="capital-latter"><span>CT</span></div> -->
+                    <div class="capital-latter">
+                        <span>{{(userData.firstName).substr(0,1) | uppercase}}{{(userData.lastName).substr(0,1) |
+                            uppercase}}</span>
+                    </div>
+                    <i class="symbol-badge bg-success"></i>
+                </div>
+                <div class="profile-content d-flex flex-column ml-4">
+                    <a href="#" class="user-name">{{ userData.firstName }} {{ userData.lastName }}</a>
+                    <div class="navi mt-2">
+                        <a class="cursor-pointer btn btn-sm btn-light-primary font-weight-bolder" (click)="logout()">
+                            Sign Out
+                        </a>
+                        <a class="cursor-pointer btn btn-sm btn-light-success font-weight-bolder ml-2"
+                            (click)="toggleClick()" [routerLink]="['/user-profile']">
+                            Update Profile
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="close-btn">
+        <button ejs-button id="close" (click)="closeClick()" class="e-btn close-btn">
+            <i class="material-icons">close</i>
+        </button>
+    </div>
+</ejs-sidebar>

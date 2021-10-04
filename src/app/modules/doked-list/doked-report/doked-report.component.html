@@ -1,0 +1,135 @@
+<div class="inner-body-wrap">
+	<div class="card card-custom gutter-b">
+		<div class="card-header">
+			<div class="card-title">
+				<h3 class="card-label">Reports Data</h3>
+			</div>
+			<div class="card-toolbar">
+				<!-- <button type="button" class="btn btn-primary size" (click)="exportCSV('csv')" *ngIf="length">Download
+                    CSV</button> -->
+			</div>
+		</div>
+		<div class="card-body">
+			<!-- begin: Filtration form -->
+			<div class="form form-label-right mb-0">
+				<div class="form-group row ">
+					<form action="#" class="form form-label-right mb-0" [formGroup]="searchForm">
+						<div class="col-lg-12 col-12 ">
+							<div class="row" *ngIf="showOtherFilters">
+								<div class="col-lg-3">
+									<small class="form-text text-muted">Filter by District</small>
+									<ng-select placeholder="Select District" formControlName="districtId" [items]="districtList"
+										bindLabel="name" bindValue="_id" [searchable]="true">
+									</ng-select>
+								</div>
+								<div class="col-lg-3">
+									<small class="form-text text-muted">Filter by School</small>
+									<ng-select placeholder="Select School" formControlName="schoolId" [items]="schoolList"
+										bindLabel="schoolName" bindValue="_id" [searchable]="true">
+									</ng-select>
+								</div>
+								<div class="col-lg-3">
+									<small class="form-text text-muted">Filter by Teacher</small>
+									<ng-select placeholder="Select Teacher" formControlName="teacherId" [items]="teacherList"
+										bindLabel="firstName" bindValue="_id" [searchable]="true">
+									</ng-select>
+								</div>
+								<div class="col-lg-3">
+									<small class="form-text text-muted">Filter by Student</small>
+									<ng-select placeholder="Select Student" formControlName="studentId" [items]="studentList"
+										bindLabel="studentName" bindValue="_id" [searchable]="true">
+									</ng-select>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-lg-4">
+									<small class="form-text text-muted">Period</small>
+									<!-- <input type="text" class="form-control" name="searchText" placeholder="Search" value=""
+                                        (keyup)="search($event.target.value)" /> -->
+									<ng-select class="m-t-1" placeholder="Select a Period" [items]="periodList"
+										(change)="onPeriodChange()" formControlName="period" bindLabel="label"
+										[class.is-invalid]="isControlInvalid('period')" [class.is-valid]="isControlValid('period')"
+										bindValue="value" [searchable]="true">
+									</ng-select>
+								</div>
+								<div class="col-lg-8 row">
+									<div class="col-lg-5">
+										<div class="form-group" (clickOutside)="dStartDate.close()">
+											<div class="form-group row">
+												<small class="form-text text-muted">Start Date</small>
+												<div class="input-group">
+													<input class="form-control" placeholder="yyyy-mm-dd" name="dp" formControlName="created_from"
+														[disabled]="dateChange()" ngbDatepicker #dStartDate="ngbDatepicker"
+														(click)="dStartDate.toggle()">
+													<div class="input-group-append">
+														<button class="btn btn-primary no-shadow" (click)="dStartDate.toggle()"
+															[disabled]="dateChange()" type="button">
+															<i class="fa fa-calendar"></i>
+														</button>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+									<div class="col-lg-5">
+										<div class="form-group" (clickOutside)="dEndDate.close()">
+											<div class="form-group row">
+												<small class="form-text text-muted">End Date</small>
+												<div class="input-group">
+													<input class="form-control" placeholder="yyyy-mm-dd" name="dp" formControlName="created_to"
+														[disabled]="dateChange()" ngbDatepicker #dEndDate="ngbDatepicker"
+														(click)="dEndDate.toggle()">
+													<div class="input-group-append">
+														<button class="btn btn-primary no-shadow" (click)="dEndDate.toggle()"
+															[disabled]="dateChange()" type="button">
+															<i class="fa fa-calendar"></i>
+														</button>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+									<div class="col-lg-2" *ngIf="showSearchButton">
+										<small class="form-text text-muted">Search</small>
+										<button class="btn btn-primary no-shadow search" (click)="getDataWithDate()" type="button">
+											<i class="fa fa-search"></i>
+										</button>
+									</div>
+								</div>
+							</div>
+						</div>
+					</form>
+				</div>
+			</div>
+			<!-- end: Filtration form -->
+		</div>
+	</div>
+	<div class="card card-custom gutter-b mt-1">
+		<div class="card-body">
+			<div>
+				<app-student-pie [pieStudentData]="pieChartData"></app-student-pie>
+			</div>
+		</div>
+	</div>
+	<div class="card card-custom gutter-b mt-1">
+		<div class="card-body">
+			<div>
+				<app-duration-pie [pieChartDuration]="pieDurationData"></app-duration-pie>
+			</div>
+		</div>
+	</div>
+	<div class="card card-custom gutter-b mt-1">
+		<div class="card-body">
+			<div>
+				<div [chart]="barPushInOut"></div>
+			</div>
+		</div>
+	</div>
+	<div class="card card-custom gutter-b mt-1">
+		<div class="card-body">
+			<div>
+				<div [chart]="barInstruction"></div>
+			</div>
+		</div>
+	</div>
+</div>

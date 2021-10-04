@@ -1,0 +1,297 @@
+<div class="modal-content">
+	<div class="modal-header">
+		<div class="modal-title h4" id="example-modal-sizes-title-lg">
+			<ng-container>
+				<ng-container *ngIf="students && !viewMode">Edit</ng-container>
+				<ng-container *ngIf="!students && !viewMode">Create</ng-container>
+				<ng-container *ngIf="viewMode">View</ng-container>
+				Student
+			</ng-container>
+		</div>
+	</div>
+	<div class="overlay overlay-block cursor-default modal-body">
+
+		<ng-container>
+			<form action="#" class="form form-label-right" [formGroup]="formGroup">
+				<div class="form-group row">
+					<div class="col-md-4 col-lg-4">
+						<label class="form-label"> Student Name</label>
+						<input type="text" class="form-control form-control-lg form-control-solid" name="studentName"
+							placeholder="Enter Student Name" autocomplete="off" [class.is-invalid]="isControlInvalid('studentName')"
+							[class.is-valid]="isControlValid('studentName')" formControlName="studentName" />
+						<div class="valid-feedback" *ngIf="isControlValid('studentName')">
+							Student name was entered correct
+						</div>
+						<div class="invalid-feedback" *ngIf="controlHasError('required', 'studentName')">
+							Student name is required
+						</div>
+						<div class="invalid-feedback" *ngIf="controlHasError('minlength', 'studentName')">
+							Student name should have at least 3 characters
+						</div>
+						<div class="invalid-feedback" *ngIf="controlHasError('maxlength', 'studentName')">
+							Student name should have maximum 20 characters
+						</div>
+					</div>
+					<div class="col-md-4 col-lg-4">
+						<label class="form-label">Email</label>
+						<input type="email" class="form-control form-control-lg form-control-solid" name="email"
+							placeholder="Enter Email" autocomplete="off" [class.is-invalid]="isControlInvalid('email')"
+							[class.is-valid]="isControlValid('email')" formControlName="email" />
+						<div class="valid-feedback" *ngIf="isControlValid('email')">
+							Email was entered correct
+						</div>
+						<div class="invalid-feedback" *ngIf="controlHasError('required', 'email')">
+							Email is required
+						</div>
+						<div class="invalid-feedback" *ngIf="controlHasError('minlength', 'email')">
+							Email should have at least 5 characters
+						</div>
+						<div class="invalid-feedback" *ngIf="controlHasError('maxlength', 'email')">
+							Email should have maximum 50 characters
+						</div>
+					</div>
+					<!-- State control -->
+					<div class="col-md-4 col-lg-4">
+						<label>Select School</label>
+						<ng-select placeholder="Select School" [items]="schoolList" bindLabel="schoolName" bindValue="_id"
+							[searchable]="true" formControlName="schoolId">
+						</ng-select>
+						<div class="valid-feedback" *ngIf="isControlValid('schoolId')">
+							School is Selected
+						</div>
+						<div class="invalid-feedback" *ngIf="controlHasError('required', 'schoolId')">
+							School is required
+						</div>
+					</div>
+
+					<div class="col-md-4 col-lg-4">
+						<label>Select Grade</label>
+						<ng-select placeholder="Select Grade" [items]="gradeList" bindLabel="name" bindValue="_id"
+							[searchable]="true" formControlName="gradeId">
+						</ng-select>
+						<div class="valid-feedback" *ngIf="isControlValid('gradeId')">
+							Grade is Selected
+						</div>
+						<div class="invalid-feedback" *ngIf="controlHasError('required', 'gradeId')">
+							Grade is required
+						</div>
+					</div>
+					<!-- Sasid -->
+					<div class="col-md-4 col-lg-4" *ngIf="viewMode || !editMode">
+						<label class="form-label"> SAS ID</label>
+						<input type="text" class="form-control form-control-lg form-control-solid" name="sasId"
+							placeholder="Enter SAS ID" autocomplete="off" [class.is-invalid]="isControlInvalid('sasId')"
+							[class.is-valid]="isControlValid('sasId')" formControlName="sasId" />
+						<div class="valid-feedback" *ngIf="isControlValid('sasId')">
+							SAS ID was entered correct
+						</div>
+						<div class="invalid-feedback" *ngIf="controlHasError('required', 'sasId')">
+							SAS ID is required
+						</div>
+						<div class="invalid-feedback" *ngIf="controlHasError('minlength', 'sasId')">
+							SAS ID should have at least 3 characters
+						</div>
+						<div class="invalid-feedback" *ngIf="controlHasError('maxlength', 'sasId')">
+							SAS ID should have maximum 10 characters
+						</div>
+					</div>
+					<!-- Assesment Id -->
+					<div class="col-md-4 col-lg-4" *ngIf="viewMode || !editMode">
+						<label class="form-label"> Assesment ID</label>
+						<input type="text" class="form-control form-control-lg form-control-solid" name="assessementId"
+							placeholder="Enter Assesment ID" autocomplete="off" [class.is-invalid]="isControlInvalid('assessementId')"
+							[class.is-valid]="isControlValid('assessementId')" formControlName="assessementId" />
+						<div class="valid-feedback" *ngIf="isControlValid('assessementId')">
+							Assesment ID was entered correct
+						</div>
+						<div class="invalid-feedback" *ngIf="controlHasError('required', 'assessementId')">
+							Assesment ID is required
+						</div>
+						<div class="invalid-feedback" *ngIf="controlHasError('minlength', 'assessementId')">
+							Assesment ID should have at least 3 characters
+						</div>
+						<div class="invalid-feedback" *ngIf="controlHasError('maxlength', 'assessementId')">
+							Assesment ID should have maximum 10 characters
+						</div>
+					</div>
+					<!-- primaryLanguage-->
+					<div class="col-md-4 col-lg-4">
+						<label class="form-label"> Primary Language</label>
+						<input type="text" class="form-control form-control-lg form-control-solid" name="primaryLanguage"
+							placeholder="Enter Primary Language" autocomplete="off"
+							[class.is-invalid]="isControlInvalid('primaryLanguage')"
+							[class.is-valid]="isControlValid('primaryLanguage')" formControlName="primaryLanguage" />
+						<div class="valid-feedback" *ngIf="isControlValid('primaryLanguage')">
+							Primary Language was entered correct
+						</div>
+						<div class="invalid-feedback" *ngIf="controlHasError('required', 'primaryLanguage')">
+							Primary Language is required
+						</div>
+						<div class="invalid-feedback" *ngIf="controlHasError('minlength', 'primaryLanguage')">
+							Primary Language should have at least 5 characters
+						</div>
+						<div class="invalid-feedback" *ngIf="controlHasError('maxlength', 'primaryLanguage')">
+							Primary Language should have maximum 20 characters
+						</div>
+					</div>
+					<!-- Program Type-->
+					<div class="col-md-4 col-lg-4">
+						<label class="form-label"> Program Type</label>
+						<input type="text" class="form-control form-control-lg form-control-solid" name="programType"
+							placeholder="Enter Program Type" autocomplete="off" formControlName="programType" />
+						<!-- <div class="valid-feedback" *ngIf="isControlValid('programType')">
+							Program Type was entered correct
+						</div>
+						<div class="invalid-feedback" *ngIf="controlHasError('required', 'programType')">
+							Program Type is required
+						</div>
+						<div class="invalid-feedback" *ngIf="controlHasError('minlength', 'programType')">
+							Program Type should have at least 5 characters
+						</div>
+						<div class="invalid-feedback" *ngIf="controlHasError('maxlength', 'programType')">
+							Program Type should have maximum 20 characters
+						</div> -->
+					</div>
+					<!-- Screening Type-->
+					<div class="col-md-4 col-lg-4">
+						<label class="form-label"> Screening Type</label>
+						<input type="text" class="form-control form-control-lg form-control-solid" name="screeningType"
+							placeholder="Enter Screening Type" autocomplete="off" formControlName="screeningType" />
+						<!-- <div class="valid-feedback" *ngIf="isControlValid('screeningType')">
+							Screening Type was entered correct
+						</div>
+						<div class="invalid-feedback" *ngIf="controlHasError('required', 'screeningType')">
+							Screening Type is required
+						</div>
+						<div class="invalid-feedback" *ngIf="controlHasError('minlength', 'screeningType')">
+							Screening Type should have at least 5 characters
+						</div>
+						<div class="invalid-feedback" *ngIf="controlHasError('maxlength', 'screeningType')">
+							Screening Type should have maximum 20 characters
+						</div> -->
+					</div>
+					<!-- Screening Score-->
+					<div class="col-md-4 col-lg-4">
+						<label class="form-label"> Screening Score</label>
+						<input type="text" class="form-control form-control-lg form-control-solid" name="screeningScore"
+							placeholder="Enter Screening Score" autocomplete="off" formControlName="screeningScore" />
+						<!-- <div class="valid-feedback" *ngIf="isControlValid('screeningScore')">
+							Screening Score was entered correct
+						</div>
+						<div class="invalid-feedback" *ngIf="controlHasError('required', 'screeningScore')">
+							Screening Score is required
+						</div>
+						<div class="invalid-feedback" *ngIf="controlHasError('minlength', 'screeningScore')">
+							Screening Score should have at least 5 characters
+						</div>
+						<div class="invalid-feedback" *ngIf="controlHasError('maxlength', 'screeningScore')">
+							Screening Score should have maximum 20 characters
+						</div> -->
+					</div>
+					<!-- Screening Score-->
+					<div class="col-md-4 col-lg-4">
+						<label class="form-label"> Service Minutes</label>
+						<input type="text" class="form-control form-control-lg form-control-solid" name="serviceMinutes"
+							placeholder="Enter Service Minutes" autocomplete="off" formControlName="serviceMinutes" />
+						<!-- <div class="valid-feedback" *ngIf="isControlValid('serviceMinutes')">
+							Service Minutes was entered correct
+						</div>
+						<div class="invalid-feedback" *ngIf="controlHasError('required', 'serviceMinutes')">
+							Service Minutes is required
+						</div>
+						<div class="invalid-feedback" *ngIf="controlHasError('minlength', 'serviceMinutes')">
+							Service Minutes should have at least 5 characters
+						</div>
+						<div class="invalid-feedback" *ngIf="controlHasError('maxlength', 'serviceMinutes')">
+							Service Minutes should have maximum 20 characters
+						</div> -->
+					</div>
+
+					<!-- Comment-->
+					<div class="col-md-4 col-lg-4">
+						<label class="form-label"> Comment</label>
+						<input type="text" class="form-control form-control-lg form-control-solid" name="comment"
+							placeholder="Enter Comment" autocomplete="off" formControlName="comment" />
+						<!--[class.is-invalid]="isControlInvalid('comment')"
+                            [class.is-valid]="isControlValid('comment')" 
+                            <div class="valid-feedback" *ngIf="isControlValid('comment')">
+                            Comment was entered correct
+                        </div>
+                        <div class="invalid-feedback" *ngIf="controlHasError('required', 'comment')">
+                            Comment is required
+                        </div>
+                        <div class="invalid-feedback" *ngIf="controlHasError('minlength', 'comment')">
+                            Comment should have at least 5 characters
+                        </div>
+                        <div class="invalid-feedback" *ngIf="controlHasError('maxlength', 'comment')">
+                            Comment should have maximum 20 characters
+                        </div> -->
+					</div>
+					<!-- Comment-->
+					<!-- <div class="col-md-4 col-lg-4">
+						<label class="form-label"> Missing Enrollment No</label>
+						<div class="radiobox-form">
+							<div class="row col-lg-12">
+								<div class="col-lg-6">
+									<label for="checked-yes" class="custom-checkbox">
+										<input type="radio" class="form-check-input" id="checked-yes" value="true"
+											formControlName="missingAnrolmentNo">
+										<span class="custom-checkbox-span"> Yes </span>
+									</label>
+								</div>
+								<div class="col-lg-6">
+									<label for="checked-no" class="custom-checkbox">
+										<input type="radio" class="form-check-input" id="checked-no" value="false"
+											formControlName="missingAnrolmentNo">
+										<span class="custom-checkbox-span"> No </span>
+									</label>
+								</div>
+							</div>
+						</div>
+					</div> -->
+					<!-- Comment-->
+					<div class="col-md-4 col-lg-6">
+						<label class="form-label"> Last Year Improved Flag</label>
+						<div class="radiobox-form">
+							<div class="row col-lg-12">
+								<div class="col-lg-6">
+									<label for="checked-yess" class="custom-checkbox">
+										<input type="radio" class="form-check-input" id="checked-yess" value="true"
+											formControlName="lastYearImprovedFlag">
+										<span class="custom-checkbox-span"> Yes </span>
+									</label>
+								</div>
+								<div class="col-lg-6">
+									<label for="checked-noo" class="custom-checkbox">
+										<input type="radio" class="form-check-input" id="checked-noo" value="false"
+											formControlName="lastYearImprovedFlag">
+										<span class="custom-checkbox-span"> No </span>
+									</label>
+								</div>
+							</div>
+						</div>
+						<!-- <input type="checkbox" class="form-control form-control-lg form-control-solid"
+                            name="lastYearImprovedFlag" autocomplete="off" formControlName="lastYearImprovedFlag" /> -->
+					</div>
+					<!-- Comment-->
+					<div class="col-md-4 col-lg-6">
+						<label class="form-label"> Years of Foreign Education</label>
+						<input type="text" class="form-control form-control-lg form-control-solid" name="yearsOfForeignEducation"
+							placeholder="Enter Years" autocomplete="off" formControlName="yearsOfForeignEducation" />
+					</div>
+				</div>
+			</form>
+		</ng-container>
+	</div>
+	<div class="modal-footer">
+		<button type="button" class="btn btn-light btn-elevate mr-2" (click)="cancel()">
+			Cancel
+		</button>
+		<ng-container>
+			<button *ngIf="!viewMode" type="submit" class="btn btn-primary btn-elevate" (click)="save()"
+				[disabled]="formGroup.invalid">
+				<i class="fa fa-spin fa-spinner" *ngIf="isLoading"></i> Save
+			</button>
+		</ng-container>
+	</div>
+</div>

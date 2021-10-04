@@ -1,0 +1,69 @@
+<div class="modal-content">
+	<div class="modal-header">
+		<div class="modal-title h4" id="example-modal-sizes-title-lg">
+			<ng-container>
+				<ng-container *ngIf="endorsments">Edit</ng-container>
+				<ng-container *ngIf="!endorsments">Create</ng-container>
+				Endorsment
+			</ng-container>
+		</div>
+	</div>
+	<div class="overlay overlay-block cursor-default modal-body">
+		<ng-container>
+			<form action="#" class="form form-label-right" [formGroup]="formGroup">
+				<div class="form-group row">
+					<!-- Endorsment Number -->
+					<div class="col-md-6 col-lg-6">
+						<label class="form-label">Endorsment number</label>
+						<input type="text" class="form-control form-control-lg form-control-solid" name="number"
+							placeholder="Enter Endorsment Number" autocomplete="off" [class.is-invalid]="isControlInvalid('number')"
+							[class.is-valid]="isControlValid('number')" formControlName="number" />
+
+						<div class="valid-feedback" *ngIf="isControlValid('number')">
+							Endorsment Number was entered correct
+						</div>
+
+						<div class="invalid-feedback" *ngIf="controlHasError('required', 'number')">
+							Endorsment Number is required
+						</div>
+						<div class="invalid-feedback" *ngIf="controlHasError('min', 'number')">
+							Endorsment Number should have at least 3 digit
+						</div>
+						<div class="invalid-feedback" *ngIf="controlHasError('max', 'number')">
+							Endorsment Number should have maximum 6 digit
+						</div>
+					</div>
+					<div class="col-md-6 col-lg-6">
+						<label class="form-label">Endorsment Title</label>
+						<input type="text" class="form-control form-control-lg form-control-solid" name="name"
+							placeholder="Enter Endorsment Title" autocomplete="off" [class.is-invalid]="isControlInvalid('name')"
+							[class.is-valid]="isControlValid('name')" formControlName="name" />
+						<div class="valid-feedback" *ngIf="isControlValid('name')">
+							Endorsment Title was entered correct
+						</div>
+						<div class="invalid-feedback" *ngIf="controlHasError('required', 'name')">
+							Endorsment Title is required
+						</div>
+						<div class="invalid-feedback" *ngIf="controlHasError('minlength', 'name')">
+							Endorsment Title should have at least 3 characters
+						</div>
+						<div class="invalid-feedback" *ngIf="controlHasError('maxlength', 'name')">
+							Endorsment Title should have maximum 50 characters
+						</div>
+					</div>
+				</div>
+			</form>
+		</ng-container>
+	</div>
+	<div class="modal-footer">
+		<button type="button" class="btn btn-light btn-elevate mr-2" (click)="cancel()">
+			Cancel
+		</button>
+		<ng-container>
+			<button type="submit" class="btn btn-primary btn-elevate" (click)="save()" [disabled]="formGroup.invalid">
+				<i class="fa fa-spin fa-spinner" *ngIf="isLoading"></i> Save
+			</button>
+		</ng-container>
+	</div>
+
+</div>

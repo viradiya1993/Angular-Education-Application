@@ -1,0 +1,7 @@
+tr > td:last-of-type {
+    width: 15%;
+}
+input[type="file"] {
+    visibility: hidden;
+    display: none;
+}

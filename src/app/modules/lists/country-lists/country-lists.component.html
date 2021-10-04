@@ -1,0 +1,62 @@
+<div class="inner-body-wrap">
+	<div class="card card-custom gutter-b">
+		<div class="card-header">
+			<div class="card-title">
+				<h3 class="card-label">Country Detail</h3>
+			</div>
+
+		</div>
+		<div class="card-body">
+			<!-- begin: Filtration form -->
+			<div class="form form-label-right">
+				<div class="form-group row">
+					<div class="col-lg-8">
+						<div class="row">
+							<!-- <div class="col-lg-6">
+								<small class="form-text text-muted">Search in country name</small>
+								<input type="text" class="form-control" name="searchText" placeholder="Search" value="" (keyup)="search($event.target.value)" />
+							</div> -->
+							<!-- <div class="col-lg-6">
+								<small class="form-text text-muted">Filter by Status</small>
+								<select class="form-control" placeholder="Filter by status" name="status"
+									(change)="countryStatus($event.target.value)">
+									<option value="">All</option>
+									<option [value]="false">Active</option>
+									<option [value]="true">Inactive</option>
+								</select>
+							</div> -->
+						</div>
+					</div>
+				</div>
+				<!-- end: Filtration form -->
+
+
+				<!-- begin:Table -->
+				<div class="table-responsive angular-bootstrap-table">
+					<div class="col-12 row">
+						<div class="col-6 col-md-6 col-lg-3">
+							<div class="label-table">
+								<h5>Country Name</h5>
+							</div>
+						</div>
+						<div class="col-6 col-md-6 col-lg-3">
+							<div class="label-table">
+								<h5>United States</h5>
+							</div>
+						</div>
+						<div class="col-6 col-md-6 col-lg-3">
+							<div class="label-table">
+								<h5>Country Code</h5>
+							</div>
+						</div>
+						<div class="col-6 col-md-6 col-lg-3">
+							<div class="label-table">
+								<h5>+1</h5>
+							</div>
+						</div>
+					</div>
+				</div>
+
+			</div>
+		</div>
+	</div>

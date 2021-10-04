@@ -1,0 +1,134 @@
+<div class="modal-content">
+	<div class="modal-header">
+		<div class="modal-title h4" id="example-modal-sizes-title-lg">
+			<ng-container>
+				<ng-container *ngIf="reports">Edit</ng-container>
+				<ng-container *ngIf="!reports">Create</ng-container>
+				Reports
+			</ng-container>
+		</div>
+	</div>
+	<div class="overlay overlay-block cursor-default modal-body">
+		<ng-container>
+			<form action="#" class="form form-label-right" [formGroup]="formGroup">
+				<div class="form-group row">
+					<div class="col-md-6 col-lg-6">
+						<label class="form-label">Reports Title</label>
+						<input type="text" class="form-control form-control-lg form-control-solid" name="name"
+							placeholder="Enter Reports Title" autocomplete="off" [class.is-invalid]="isControlInvalid('name')"
+							[class.is-valid]="isControlValid('name')" formControlName="name" />
+						<div class="valid-feedback" *ngIf="isControlValid('name')">
+							Reports Title was entered correct
+						</div>
+						<div class="invalid-feedback" *ngIf="controlHasError('required', 'name')">
+							Reports Title is required
+						</div>
+						<div class="invalid-feedback" *ngIf="controlHasError('minlength', 'name')">
+							Reports Title should have at least 3 characters
+						</div>
+						<div class="invalid-feedback" *ngIf="controlHasError('maxlength', 'name')">
+							Reports Title should have maximum 50 characters
+						</div>
+					</div>
+					<div class="col-md-6 col-lg-6 calender">
+						<label class="form-label">Report Start Date</label>
+						<mat-form-field>
+							<input (dateInput)="startDate('input', $event)" class="form-control form-control-lg form-control-solid"
+								(dateChange)="startDate('change', $event)" matInput [matDatepicker]="picker" autocomplete="off"
+								formControlName="startDate" (click)="picker.open()">
+							<mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+							<mat-datepicker #picker></mat-datepicker>
+						</mat-form-field>
+					</div>
+					<div class="col-md-6 col-lg-6 calender">
+						<label class="form-label">Report End Date</label>
+						<mat-form-field>
+							<input (dateInput)="endDate('input', $event)" class="form-control form-control-lg form-control-solid"
+								(dateChange)="endDate('change', $event)" matInput [matDatepicker]="picker1" autocomplete="off"
+								formControlName="endDate" (click)="picker.open()">
+							<mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+							<mat-datepicker #picker1></mat-datepicker>
+						</mat-form-field>
+					</div>
+					<!-- <div class="col-md-6 col-lg-6">
+						<label>Select State</label>
+						<ng-select placeholder="Select State" [items]="stateList" bindLabel="name" bindValue="_id"
+							[searchable]="true" formControlName="stateId" (change)="getDistrict($event)">
+						</ng-select>
+						<div class="valid-feedback" *ngIf="isControlValid('stateId')">
+							State is Selected
+						</div>
+						<div class="invalid-feedback" *ngIf="controlHasError('required', 'stateId')">
+							State is required
+						</div>
+					</div> -->
+					<div class="col-md-6 col-lg-6" *ngIf="showDistrict">
+						<label>Select District</label>
+						<ng-select placeholder="Select District" [items]="districtList" bindLabel="name" bindValue="_id"
+							[searchable]="true" formControlName="districtId" (change)="getSchool($event)">
+						</ng-select>
+						<!-- <div class="invalid-feedback" *ngIf="controlHasError('required', 'districtId')">
+							District is required
+						</div> -->
+					</div>
+					<!-- *ngIf="showSchool" -->
+					<div class="col-md-6 col-lg-6" *ngIf="showSchool">
+						<label>Select School</label>
+						<ng-select placeholder="Select School" [items]="schoolList" formControlName="schoolId"
+							bindLabel="schoolName" bindValue="_id" [searchable]="true" (change)="getTeacher($event)">
+						</ng-select>
+						<!-- <div class="invalid-feedback" *ngIf="controlHasError('required', 'schoolId')">
+							School is required
+						</div> -->
+					</div>
+					<div class="col-md-6 col-lg-6" *ngIf="showTeachers">
+						<label>Select Teacher</label>
+						<ng-select placeholder="Select Teacher" [items]="teacherList" formControlName="teacherId"
+							bindLabel="fullName" bindValue="_id" [searchable]="true">
+						</ng-select>
+						<!-- <div class="invalid-feedback" *ngIf="controlHasError('required', 'teacherId')">
+							Teacher is required
+						</div> -->
+					</div>
+					<div class="col-md-6 col-lg-6" *ngIf="showStudents">
+						<label>Select Student</label>
+						<ng-select placeholder="Select Student" [items]="studentList" formControlName="studentId"
+							bindLabel="studentName" bindValue="_id" [searchable]="true">
+						</ng-select>
+						<!-- <div class="invalid-feedback" *ngIf="controlHasError('required', 'studentId')">
+							Student is required
+						</div> -->
+					</div>
+					<div class="col-md-6 col-lg-6">
+						<label>Select Questions</label>
+						<ng-select placeholder="Select Questions" [items]="questionsList" formControlName="questionId"
+							bindLabel="question" bindValue="_id" [searchable]="true" (change)="getAnswer($event)">
+						</ng-select>
+						<div class="invalid-feedback" *ngIf="controlHasError('required', 'questionId')">
+							Questions is required
+						</div>
+					</div>
+					<div class="col-md-6 col-lg-6" *ngIf="showAnswer">
+						<label class="form-label">Reports Answer</label>
+						<ng-select placeholder="Select Answer" [items]="answerList" formControlName="answer"
+							bindLabel="answer" bindValue="answer" [searchable]="true">
+						</ng-select>
+						<!-- <div class="invalid-feedback" *ngIf="controlHasError('required', 'answer')">
+							Reports Answer is required
+						</div> -->
+					</div>
+				</div>
+			</form>
+		</ng-container>
+	</div>
+	<div class="modal-footer">
+		<button type="button" class="btn btn-light btn-elevate mr-2" (click)="cancel()">
+			Cancel
+		</button>
+		<ng-container>
+			<button type="submit" class="btn btn-primary btn-elevate" (click)="save()">
+				<i class="fa fa-spin fa-spinner" *ngIf="isLoading"></i> Save
+			</button>
+		</ng-container>
+	</div>
+</div>

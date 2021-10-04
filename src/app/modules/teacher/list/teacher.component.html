@@ -1,0 +1,106 @@
+<div class="inner-body-wrap">
+	<div class="card card-custom gutter-b">
+		<div class="card-header">
+			<div class="card-title">
+				<h3 class="card-label">Teacher list</h3>
+			</div>
+			<div class="card-toolbar">
+				<button type="button" class="btn btn-primary" (click)="create()">Add Teacher</button>
+			</div>
+		</div>
+		<div class="card-body">
+			<!-- begin: Filtration form -->
+			<div class="form form-label-right">
+				<div class="form-group row">
+					<div class="col-lg-12 col-12">
+						<form action="#" class="form form-label-right" [formGroup]="formGroup">
+							<div class="row">
+								<div class="col-lg-3">
+									<small class="form-text text-muted">Search in teacher name</small>
+									<input type="text" class="form-control" name="searchText" placeholder="Search" value=""
+										(keyup)="search($event.target.value)" formControlName="search" />
+								</div>
+								<div class="col-lg-3">
+									<small class="form-text text-muted">Filter by School</small>
+									<ng-select placeholder="Select School" [items]="schoolList" bindLabel="schoolName" bindValue="_id"
+										[searchable]="true" formControlName="defaultSchoolId" (change)="filterSchool($event)">
+									</ng-select>
+								</div>
+								<div class="col-lg-3">
+									<small class="form-text text-muted">Filter by Status</small>
+									<ng-select placeholder="Select status" [items]="statusList" bindLabel="name" bindValue="value"
+										formControlName="status" (change)="teacherStatus($event)">
+									</ng-select>
+								</div>
+								<div class="col-lg-3">
+									<small class="form-text text-muted">Filter by Endorsement</small>
+									<ng-select placeholder="Select an Endorsement" [items]="endorsementList" bindLabel="name"
+										bindValue="_id" [multiple]="true" [searchable]="true" (change)="statusChange($event)" formControlName="endorsement">
+									</ng-select>
+								</div>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+			<!-- end: Filtration form -->
+			<!-- begin:Table -->
+			<div class="table-responsive angular-bootstrap-table">
+				<table class="table table-head-custom table-vertical-center overflow-hidden" *ngIf="length > 0">
+					<thead>
+						<th>Techer Name</th>
+						<th class="fitwidth">Phone Number</th>
+						<th>Email</th>
+						<th>School</th>
+						<th>Endorsement</th>
+						<th>Status</th>
+						<th>Actions</th>
+					</thead>
+					<tbody>
+						<tr *ngFor="let teacher of teachersList">
+							<td>{{teacher?.users[0]?.firstName | uppercase}}
+								{{teacher?.users[0]?.lastName |
+								uppercase}}
+							</td>
+							<td>{{teacher?.users[0]?.phoneNumber}}
+							</td>
+							<td>{{teacher?.users[0]?.email}}</td>
+							<td>{{teacher?.school[0]?.schoolName}}</td>
+							<!-- | truncate: [15, '...'] -->
+							<td>{{teacher?.endorsement}}</td>
+							<td>{{teacher?.isActivated === false ? 'Active' : 'InActive'}}</td>
+							<td class="fitwidth">
+								<div class="d-flex align-items-center">
+
+									<button title="chnage status" class="btn btn-icon btn-light btn-hover-primary btn-sm mx-1"
+										(click)="activeInactivestatus(teacher._id, teacher?.isActivated)">
+										<i class="material-icons">subject</i>
+									</button>
+									<button title="View Teacher" class="btn btn-icon btn-light btn-hover-primary btn-sm mx-1"
+										(click)="view(teacher)">
+										<i class="material-icons">visibility</i>
+									</button>
+									<button title="Edit Teacher" class="btn btn-icon btn-light btn-hover-primary btn-sm mx-1"
+										(click)="edit(teacher)" [disabled]="(teacher?.isActivated === true)">
+										<i class="material-icons">edit</i>
+									</button>
+									<button title="Delete Teacher" class="btn btn-icon btn-light btn-hover-danger btn-sm mx-1"
+										(click)="delete(teacher?._id)" [disabled]="(teacher?.isActivated === true)">
+										<i class="material-icons">delete</i>
+									</button>
+								</div>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+				<div *ngIf="length == 0" class="text-center font16 mt15 mb15 pt-4">
+					Teachers record not found
+					<hr>
+				</div>
+			</div>
+			<app-pagination class="d-flex justify-content-between align-items-center flex-wrap" *ngIf="length"
+				[childMessage]="length" [index]="index" (messageEvent)="receiveMessage($event)"></app-pagination>
+			<!-- end: Table -->
+		</div>
+	</div>
+</div>

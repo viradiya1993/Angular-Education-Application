@@ -1,0 +1,93 @@
+<div class="inner-body-wrap">
+	<div class="card card-custom gutter-b">
+		<div class="card-header">
+			<div class="card-title">
+				<h3 class="card-label">States list</h3>
+			</div>
+			<div class="card-toolbar">
+				<button type="button" class="btn btn-primary" (click)="filePicker.click()">
+					Upload CSV
+				</button>
+				<input type="file" #filePicker (change)="onAddFile($event)">
+				<button type="button" class="btn btn-primary" (click)="create()">Add State</button>
+			</div>
+		</div>
+		<div class="card-body">
+			<!-- begin: Filtration form -->
+			<div class="form form-label-right">
+				<div class="form-group row">
+					<div class="col-lg-8">
+						<div class="row">
+							<div class="col-lg-6">
+								<small class="form-text text-muted">Search in state name</small>
+								<input type="text" class="form-control" name="searchText" placeholder="Search" value=""
+									(keyup)="search($event.target.value)" />
+							</div>
+
+							<div class="col-lg-6">
+								<small class="form-text text-muted">Filter by Status</small>
+								<ng-select placeholder="Select status" [items]="statusList" bindLabel="name" bindValue="value"
+									(change)="stateStatus($event)">
+								</ng-select>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- end: Filtration form -->
+
+
+
+			<!-- begin:Table -->
+			<div class="table-wrapper">
+				<div class="table-responsive angular-bootstrap-table">
+					<table class="table table-head-custom table-vertical-center overflow-hidden" *ngIf="length > 0">
+						<thead>
+							<th>
+								State Name
+							</th>
+							<th>
+								Country Name
+							</th>
+							<th>Status</th>
+
+							<th>Actions</th>
+						</thead>
+						<tbody>
+							<tr *ngFor="let state of stateList; let i = index">
+								<td>{{ state?.name | uppercase }}</td>
+								<td>{{ state?.country | uppercase }}</td>
+								<td>{{ state?.isActivated === false ? 'Active' : 'Inactive'}}</td>
+								<td>
+									<div class="d-flex align-items-center">
+										<a title="Change status" class="btn btn-icon btn-light btn-hover-primary btn-sm mx-3"
+											(click)="activeInactiveState(state?._id,state?.isActivated)">
+											<i class="material-icons">subject</i>
+										</a>
+										<a title="Edit State" class="btn btn-icon btn-light btn-hover-primary btn-sm mx-3"
+											(click)="edit(state)">
+											<i class="material-icons">visibility</i>
+										</a>
+										<a title="Delete State" class="btn btn-icon btn-light btn-hover-danger btn-sm"
+											(click)="delete(state?._id)">
+											<i class="material-icons">delete</i>
+										</a>
+									</div>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+					<div *ngIf="length == 0" class="text-center font16 mt15 mb15 pt-4">
+						State record not found
+						<hr>
+					</div>
+
+				</div>
+				<app-pagination *ngIf="length" [childMessage]="length" [index]="index" (messageEvent)="receiveMessage($event)">
+				</app-pagination>
+			</div>
+			<!-- end: Table -->
+
+		</div>
+	</div>
+</div>

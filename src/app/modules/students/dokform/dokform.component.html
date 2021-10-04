@@ -1,0 +1,225 @@
+<div class="inner-body-wrap">
+	<div class="card card-custom gutter-b">
+		<div class="card-header">
+			<div class="card-title">
+				<h3 class="card-label">Students Daily DokEdform</h3>
+			</div>
+		</div>
+		<div class="card-body">
+			<!-- begin: Filtration form -->
+			<div class="form form-label-right">
+				<form action="#" class="form form-label-right" [formGroup]="formDokedStudent">
+					<div class="form-group row">
+						<div class="col-lg-12">
+							<div class="row">
+								<div class="col-md-6 col-lg-6">
+									<label><b>Select Student</b></label>
+									<ng-select class="custom" placeholder="Select Student" [items]="studentList"
+										formControlName="studentId" bindLabel="studentName" bindValue="_id"
+										(change)="onStudentChange($event)" [searchable]="true"
+										[class.is-invalid]="isControlInvalid('studentId')" [class.is-valid]="isControlValid('studentId')">
+									</ng-select>
+									<div class="valid-feedback" *ngIf="isControlValid('studentId')">
+										Student is Selected
+									</div>
+									<div class="invalid-feedback" *ngIf="controlHasError('required', 'studentId')">
+										Student is required
+									</div>
+								</div>
+								<div class="col-md-6 col-lg-6 row" *ngIf="showDefaultQuestion && defaultQuestionArray.length">
+									<!-- <label class="card-label text-center">Default Question</label> -->
+									<div class="col-md-12 col-lg-12" *ngFor="let data of defaultQuestionArray; let i = index">
+										<div class="form-group">
+											<!-- Set questions here -->
+											<label class="w-100 col-form-label text-capitalize">
+												<b>
+													{{data.question}}
+												</b>
+											</label>
+											<!-- Dropdown -->
+											<div class="dropdown-icon" *ngIf="data.questionType === 'dropdown'">
+												<ng-select class="form-field-secondary" placeholder="Select"
+													(change)="onChangeDropdownDefault($event, data)">
+													<ng-option *ngFor="let val of data.option" [value]="val">
+														{{val}}
+													</ng-option>
+												</ng-select>
+												<div *ngIf="rfqServerErr && questionErrMessage(data.id)" class="invalid-feedback">
+													<div>
+														This Feild is Required
+													</div>
+												</div>
+												<i class="icon-down-arrow"></i>
+											</div>
+											<!-- Radio -->
+											<div class="radiobox-form d-flex flex-wrap" *ngIf="data.questionType === 'radio'">
+												<label for="deodorizer-{{val}}" class="custom-checkbox" *ngFor="let val of data.option">
+													<input type="radio" name="{{val}}" value="{{val}}" class="form-check-input" required
+														(change)="onChangeRadioBoxDefault(val, data)" id="deodorizer-{{val}}">
+													<span class="custom-checkbox-span"> {{val}} </span>
+												</label>
+											</div>
+
+											<!-- checkbox -->
+											<div class="radiobox-form" *ngIf="data.questionType === 'checkbox'">
+												<div class="row">
+													<div class="col-md-6">
+														<div class="d-flex flex-wrap">
+															<label for="deodorizer-{{val}}" class="custom-checkbox" *ngFor="let val of data.option">
+																<input type="radio" name="{{data._id}}" value="{{val}}"
+																	(change)="onChangeCheckBoxDeafult($event.target.value, data)" class="form-check-input"
+																	required id="deodorizer-{{data._id}}-{{val}}">
+																<span class="custom-checkbox-span"> {{val}} </span>
+															</label>
+														</div>
+													</div>
+												</div>
+											</div>
+											<!-- Textbox -->
+											<input *ngIf="data.questionType === 'textbox'" type="text" class="form-control form-field"
+												required (change)="onChangeTextboxDeafault($event.target.value, data)"
+												placeholder="Enter {{data.display_title}}">
+											<input *ngIf="data.questionType === 'number'" type="number" class="form-control form-field"
+												[ngModelOptions]="{standalone: true}"
+												[ngClass]="{ 'is-invalid': ( ( rfqServerErr && questionErrMessage(data._id) ) ) }" required
+												placeholder="Enter {{data.display_title}}">
+											<div *ngIf="rfqServerErr && questionErrMessage(data._id)" class="invalid-feedback">
+												<div>
+													This Feild is Required
+												</div>
+											</div>
+
+										</div>
+									</div>
+								</div>
+								<div class="col-md-12 col-lg-12" *ngIf="showComment">
+									<!-- Comment Section -->
+									<input type="text" class="form-control form-field" required
+										(change)="onChangeComment($event.target.value, data)" placeholder="Enter Comment"
+										formControlName="comment" [class.is-invalid]="isControlInvalid('comment')"
+										[class.is-valid]="isControlValid('comment')">
+									<div class="valid-feedback" *ngIf="isControlValid('comment')">
+										Comment was entered correctly
+									</div>
+									<div class="invalid-feedback" *ngIf="controlHasError('required', 'comment')">
+										Comment is required
+									</div>
+								</div>
+							</div>
+							<div class="row" *ngIf="showForm && questionArray.length">
+								<div class="card-header mt-5 mb-4 border-top rounded-0">
+									<div class="card-title">
+										<h3 class="card-label text-center">Please fill all questions</h3>
+									</div>
+								</div>
+								<div class="col-md-6 col-xl-4" *ngFor="let data of questionArray; let i = index">
+									<div class="form-group">
+										<!-- Set questions here -->
+										<label class="w-100 col-form-label text-capitalize">
+											<b>
+												{{data.question}}
+											</b>
+											<span class="required-asterisk" *ngIf="data.isRequired">*</span>
+										</label>
+										<!-- Dropdown -->
+										<div class="dropdown-icon" *ngIf="data.questionType === 'dropdown'">
+											<!-- <ng-select class="form-field-secondary" placeholder="Select" multiple='true'
+												*ngIf="data.isSelectMultiple === true"
+												(change)="onChangeDropdownMultiple($event, data._id, data.answerType)">
+												<ng-option *ngFor="let val of data.option" [value]="val">
+													{{val}}
+												</ng-option>
+											</ng-select> -->
+											<ng-select class="form-field-secondary" placeholder="Select"
+												*ngIf="data.isSelectMultiple === false"
+												(change)="onChangeDropdown($event, data._id, data.answerType)">
+												<ng-option *ngFor="let val of data.option" [value]="val">
+													{{val}}
+												</ng-option>
+											</ng-select>
+											<div *ngIf="rfqServerErr && questionErrMessage(data.id)" class="invalid-feedback">
+												<div>
+													This Feild is Required
+												</div>
+											</div>
+											<i class="icon-down-arrow"></i>
+										</div>
+										<!-- Radio -->
+										<div class="radiobox-form d-flex flex-wrap" *ngIf="data.questionType === 'radio'">
+											<label for="deodorizer-{{val}}" class="custom-checkbox" *ngFor="let val of data.option">
+												<input type="radio" name="{{data._id}}" value="{{val}}" class="form-check-input" required
+													(change)="onChangeRadioBox(val, data._id)" id="deodorizer-{{data._id}}-{{val}}">
+												<span class="custom-checkbox-span"> {{val}} </span>
+											</label>
+										</div>
+
+										<!-- checkbox-->
+										<div class=" d-flex flex-wrap" *ngIf="data.questionType === 'checkbox'">
+											<!-- checkbox Single-->
+											<ng-container *ngIf="data.isSelectMultiple === false">
+												<label for="deodorizer-{{val}}" class="custom-checkbox" *ngFor="let val of data.option">
+													<input type="radio" name="{{data._id}}" value="{{val}}"
+														(change)="onChangeCheckBoxSingle($event.target.value, $event.target.checked, data._id)"
+														class="form-check-input" required id="deodorizer-{{data._id}}-{{val}}">
+													<span class="custom-checkbox-span"> {{val}} </span>
+												</label>
+											</ng-container>
+
+											<!-- CHeckbox Multiple -->
+											<ng-container *ngIf="data.isSelectMultiple === true">
+												<label for="deodorizer-{{val}}" class="custom-checkbox" *ngFor="let val of data.option">
+													<input type="checkbox" name="{{data._id}}" value="{{val}}"
+														(change)="onChangeCheckBoxMultiple($event.target.value, $event.target.checked, data._id)"
+														class="form-check-input" required id="deodorizer-{{data._id}}-{{val}}">
+													<span class="custom-checkbox-span"> {{val}} </span>
+												</label>
+											</ng-container>
+										</div>
+
+										<!-- Text -->
+										<!-- [(ngModel)]="selectedQuestionArray[]={'questions': data._id }" -->
+										<input *ngIf="data.questionType === 'textbox'" type="text" class="form-control form-field" required
+											(change)="onChangeTextbox($event.target.value, data._id)"
+											placeholder="Enter {{data.display_title}}">
+										<input *ngIf="data.questionType === 'number'" type="number" class="form-control form-field"
+											[ngModelOptions]="{standalone: true}"
+											[ngClass]="{ 'is-invalid': ( ( rfqServerErr && questionErrMessage(data._id) ) ) }" required
+											placeholder="Enter {{data.display_title}}">
+										<div *ngIf="rfqServerErr && questionErrMessage(data._id)" class="invalid-feedback">
+											<div>
+												This Feild is Required
+											</div>
+										</div>
+										<!-- Date -->
+										<div class="input-group" *ngIf="data.questionType === 'date'">
+											<input class="form-control" placeholder="yyyy-mm-dd" name="dp" [(ngModel)]="date"
+												(click)="d.toggle()" (ngModelChange)="setDate($event,data._id)"
+												[ngClass]="{ 'is-invalid': ( ( rfqServerErr && questionErrMessage(data._id) ) ) }"
+												[ngModelOptions]="{standalone: true}" ngbDatepicker #d="ngbDatepicker">
+											<div class="input-group-append">
+												<button class="btn btn-primary" (click)="d.toggle()" type="button">
+													<i class="fas fa-calendar-alt"></i>
+												</button>
+											</div>
+											<div *ngIf="rfqServerErr && questionErrMessage(data._id)" class="invalid-feedback">
+												<div>
+													This Feild is Required
+												</div>
+											</div>
+										</div>
+
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="mar-top-2" *ngIf="showDefaultQuestion && (defaultQuestionArray.length || questionArray.length)">
+							<button type="submit" class="btn btn-primary btn-elevate" (click)="submit()"
+								[disabled]="formDokedStudent.invalid">Submit Questions
+							</button>
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>

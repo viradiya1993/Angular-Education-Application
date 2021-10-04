@@ -1,0 +1,63 @@
+<div class="inner-body-wrap">
+	<div class="card card-custom gutter-b">
+		<div class="card-header">
+			<div class="card-title">
+				<h3 class="card-label">Report's List</h3>
+			</div>
+			<div class="card-toolbar">
+				<button type="button" class="btn btn-primary size" (click)="create()">
+					New Report
+				</button>
+			</div>
+		</div>
+		<div class="card-body" *ngIf="length > 0">
+			<ng-container *ngFor="let data of reportArray">
+				<div class="formListing">
+					<div class="formicons">
+						<i class="material-icons">summarize</i>
+					</div>
+					<div class="singleHead flLeft" (click)="routeToReport(data);">
+						<h4 class="subHeading">{{data.name}}</h4>
+						<div class="singleActions">
+							<ul class="createdForm">
+								<li elname="createdTime">
+									<span>Start Date : </span>{{data.startDate}}
+								</li>
+								<li elname="createdTime">
+									<span>End Date : </span>{{data.endDate}}
+								</li>
+							</ul>
+						</div>
+					</div>
+					<div class="flRight formListActCont">
+						<ul>
+							<li class="frmListEdit">
+								<a title="chnage status" class="btn btn-icon btn-light btn-hover-primary btn-sm mx-1"
+									(click)="activeInactivestatus(data?._id, data?.isActivated)">
+									<i class="material-icons">subject</i>
+								</a>
+							</li>
+							<li class="frmListShare" *ngIf="!(data?.isActivated)">
+								<a title="Edit Teacher" class="btn btn-icon btn-light btn-hover-primary btn-sm mx-1"
+									(click)="edit(data)">
+									<i class="material-icons">edit</i>
+								</a>
+							</li>
+							<li class="frmListTrash" *ngIf="!(data?.isActivated)">
+								<a title="Delete Teacher" class="btn btn-icon btn-light btn-hover-danger btn-sm mx-1"
+									(click)="delete(data?._id)">
+									<i class="material-icons">delete</i>
+								</a>
+							</li>
+						</ul>
+					</div>
+				</div>
+
+			</ng-container>
+		</div>
+		<div *ngIf="length == 0" class="text-center font16 mt15 mb15 pt-4">
+			Reports record not found
+			<hr>
+		</div>
+	</div>
+</div>

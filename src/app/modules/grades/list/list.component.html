@@ -1,0 +1,69 @@
+<div class="inner-body-wrap">
+	<div class="card card-custom gutter-b">
+		<div class="card-header">
+			<div class="card-title">
+				<h3 class="card-label">Grade List</h3>
+			</div>
+			<div class="card-toolbar">
+				<button type="button" class="btn btn-primary" (click)="create()">Add Grade</button>
+			</div>
+		</div>
+		<div class="card-body">
+			<!-- begin: Filtration form -->
+			<div class="form form-label-right">
+				<div class="form-group row">
+					<div class="col-lg-12 col-12">
+						<div class="row">
+							<div class="col-lg-5">
+								<small class="form-text text-muted">Search in Grade name</small>
+								<input type="text" class="form-control" name="searchText" placeholder="Search" value=""
+									(keyup)="search($event.target.value)" />
+							</div>
+
+							<div class="col-lg-4">
+								<small class="form-text text-muted">Filter by Status</small>
+								<ng-select placeholder="Select status" [items]="statusList" bindLabel="name"
+									bindValue="value" (change)="gradeStatus($event)">
+								</ng-select>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- End: Filtration form -->
+			<!-- begin:Table -->
+			<div class="table-responsive angular-bootstrap-table">
+				<table class="table table-head-custom table-vertical-center overflow-hidden" *ngIf="length > 0">
+					<thead>
+						<th>Grade Name</th>
+						<th>Status</th>
+						<th>Actions</th>
+					</thead>
+					<tbody>
+						<tr *ngFor="let grade of gredeList; let i = index;">
+							<td>{{grade?.name}}</td>
+							<td>{{grade?.isActivated ? 'InActive' : 'Active'}}</td>
+							<td>
+								<div class="d-flex align-items-center">
+									<button title="change status" class="btn btn-icon btn-light btn-hover-primary btn-sm mx-3"
+										(click)="activeDeacticveGrade(grade?._id, grade?.isActivated)">
+										<i class="material-icons">subject</i>
+									</button>
+									<button title="Delete Grade" class="btn btn-icon btn-light btn-hover-danger btn-sm"
+										(click)="delete(grade?._id)" [disabled]="(grade?.isActivated)">
+										<i class="material-icons">delete</i>
+									</button>
+								</div>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+				<div *ngIf="length == 0" class="text-center font16 mt15 mb15 pt-4">
+					Grade record not found
+					<hr>
+				</div>
+			</div>
+			<!-- ebd:Table -->
+		</div>
+	</div>
+</div>

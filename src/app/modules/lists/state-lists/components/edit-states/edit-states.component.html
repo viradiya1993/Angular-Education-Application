@@ -1,0 +1,53 @@
+<div class="modal-content">
+  <div class="modal-header">
+    <div class="modal-title h4" id="example-modal-sizes-title-lg">
+      <ng-container>
+        <ng-container *ngIf="stateData">View</ng-container>
+        <ng-container *ngIf="!stateData">Create</ng-container>
+        State
+      </ng-container>
+    </div>
+  </div>
+  <div class="cursor-default modal-body">
+    <ng-container>
+      <form action="#" class="form form-label-right" [formGroup]="formGroup">
+        <div class="form-group row">
+          <div class="col-lg-6">
+            <label class="form-label">Enter State Name</label>
+            <input type="text" class="form-control form-control-lg form-control-solid" name="name"
+              placeholder="State name" autocomplete="off" [class.is-invalid]="isControlInvalid('name')"
+              [class.is-valid]="isControlValid('name')" formControlName="name" />
+            <div class="valid-feedback" *ngIf="isControlValid('name')">
+              State Name was entered correct
+            </div>
+            <div class="invalid-feedback" *ngIf="controlHasError('required', 'name')">
+              State Name is required
+            </div>
+            <div class="invalid-feedback" *ngIf="controlHasError('minlength', 'name')">
+              State Name should have at least 3 symbols
+            </div>
+            <div class="invalid-feedback" *ngIf="controlHasError('maxlength', 'name')">
+              State Name should have maximum 100 symbols
+            </div>
+          </div>
+          <div class="col-lg-6">
+            <label>Country Name</label>
+            <input type="text" class="form-control form-control-lg form-control-solid" name="country"
+              placeholder="Country name" autocomplete="off" [class.is-invalid]="isControlInvalid('country')"
+              [class.is-valid]="isControlValid('country')" formControlName="country" />
+          </div>
+        </div>
+      </form>
+    </ng-container>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-light btn-elevate mr-2" (click)="close()">
+      Cancel
+    </button>
+    <ng-container *ngIf="!stateData">
+      <button type="submit" class="btn btn-primary btn-elevate" (click)="save()" [disabled]="formGroup.invalid">
+        <i class="fa fa-spin fa-spinner" *ngIf="isLoading"></i>  Save
+      </button>
+    </ng-container>
+  </div>
+</div>

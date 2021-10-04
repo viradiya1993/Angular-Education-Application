@@ -1,0 +1,68 @@
+<div class="login-form login-signin">
+
+	<form class="form" [formGroup]="loginForm" id="kt_login_signin_form" (ngSubmit)="submit()">
+
+		<div class="pb-13 pt-lg-0 pt-5">
+			<h3 class="font-weight-bolder text-dark font-size-h4 font-size-h1-lg">
+				Welcome to DokEdDataReport
+			</h3>
+		</div>
+
+		<div class="form-group">
+			<label class="font-size-h6 font-weight-bolder text-dark">Email</label>
+			<input type="email" class="form-control form-control-solid h-auto py-7 px-6 rounded-lg" name="email"
+				placeholder="Email" autocomplete="off" [class.is-invalid]="isControlInvalid('email')"
+				[class.is-valid]="isControlValid('email')" formControlName="email" />
+			<div class="valid-feedback" *ngIf="isControlValid('email')">
+				Email was entered correct
+			</div>
+			<div class="invalid-feedback" *ngIf="controlHasError('required', 'email')">
+				Email is required
+			</div>
+			<div class="invalid-feedback" *ngIf="controlHasError('minlength', 'email')">
+				Email should have at least 3 characters
+			</div>
+			<div class="invalid-feedback" *ngIf="controlHasError('maxlength', 'email')">
+				Email should have maximum 50 characters
+			</div>
+		</div>
+
+		<div class="form-group">
+			<div class="d-flex justify-content-between mt-n5">
+				<label class="font-size-h6 font-weight-bolder text-dark pt-5">Password</label>
+				<a routerLink="/auth/forgot-password"
+					class="text-primary font-size-h6 font-weight-bolder text-hover-primary pt-5" id="kt_login_forgot">
+					Forgot Password ?
+				</a>
+			</div>
+
+			<div class="password-input">
+				<input class="form-control form-control-solid h-auto py-7 px-6 rounded-lg" name="password"
+					autocomplete="off" formControlName="password" [type]="show_button ? 'text' : 'password'"
+					[class.is-invalid]="isControlInvalid('password')" />
+				<i [class]="show_eye ? 'fa fa-eye password_hide_show' : 'fa fa-eye-slash password_hide_show'"
+					(click)="showPassword()"></i>
+			</div>
+			<!--[class.is-invalid]="isControlInvalid('password')" [class.is-valid]="isControlValid('password')" -->
+			<!-- <div class="valid-feedback" *ngIf="isControlValid('password')">
+					Password was entered correct
+				</div> -->
+			<div class="invalid-feedback" *ngIf="controlHasError('required', 'password')">
+				Password is required
+			</div>
+		</div>
+
+
+
+		<div class="pb-lg-0 pb-5">
+			<button type="submit" id="kt_login_signin_submit"
+				class="btn btn-primary font-weight-bolder font-size-h6 px-8 py-4 my-3 mr-3"
+				[disabled]="loginForm.invalid">
+				Sign In
+			</button>
+
+		</div>
+
+	</form>
+
+</div>

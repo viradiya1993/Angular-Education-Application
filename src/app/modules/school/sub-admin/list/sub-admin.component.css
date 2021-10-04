@@ -1,0 +1,21 @@
+/* .inner-body-wrap {margin-top: 80px;}
+.table-wrapper {margin-top: 20px;}
+.card-header {display: -webkit-box;display: -ms-flexbox;display: flex;-webkit-box-pack: justify;-ms-flex-pack: justify;justify-content: space-between;background-color: #fff;-webkit-box-align: center;-ms-flex-align: center;align-items: center;}
+.card-toolbar button:first-child {margin-right: 10px;}
+.card {border: none; border-radius:0;}
+.card-title {margin-bottom: 0;}
+.table th, tr td {padding: 10px;}
+.table th {font-weight: 600;}
+.form.form-label-right {margin-bottom: 20px;}
+.btn-light { color: #1e1e2d; background-color: #e6e8f0;border-color: #e6e8f0;}
+.table tr td .btn {padding: 6px 10px; height: 40px;}
+.table tr td a {margin: 5px !important;}
+
+th {
+    width: 1px;
+    white-space: nowrap;
+}
+td{
+    width: 1px;
+    white-space: nowrap;
+} */

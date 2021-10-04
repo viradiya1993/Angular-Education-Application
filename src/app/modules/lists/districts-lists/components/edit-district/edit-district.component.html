@@ -1,0 +1,95 @@
+<div class="modal-content">
+	<div class="modal-header">
+		<div class="modal-title h4" id="example-modal-sizes-title-lg">
+			<ng-container>
+				<ng-container *ngIf="districtData">View</ng-container>
+				<ng-container *ngIf="!districtData">Create</ng-container>
+				District
+			</ng-container>
+		</div>
+	</div>
+	<div class="overlay overlay-block cursor-default modal-body">
+		<ng-container *ngIf="isLoading">
+			<div class="overlay-layer bg-transparent">
+				<div class="spinner spinner-lg spinner-success"></div>
+			</div>
+		</ng-container>
+		<ng-container>
+			<form action="#" class="form form-label-right" [formGroup]="formGroup">
+				<div class="form-group row">
+					<div class="col-lg-6">
+						<label class="form-label">Enter District name</label>
+						<input type="text" class="form-control form-control-lg form-control-solid" name="name"
+							placeholder="District Name" autocomplete="off" [class.is-invalid]="isControlInvalid('name')"
+							[class.is-valid]="isControlValid('name')" formControlName="name" />
+						<div class="valid-feedback" *ngIf="isControlValid('name')">
+							District name was entered correct
+						</div>
+						<div class="invalid-feedback" *ngIf="controlHasError('required', 'name')">
+							District name is required
+						</div>
+						<div class="invalid-feedback" *ngIf="controlHasError('minlength', 'name')">
+							District name should have at least 3 symbols
+						</div>
+						<div class="invalid-feedback" *ngIf="controlHasError('maxlength', 'name')">
+							District name should have maximum 100 symbols
+						</div>
+					</div>
+
+
+
+					<div class="col-lg-6">
+						<label class="form-label">Enter SAU Code</label>
+						<input type="number" class="form-control form-control-lg form-control-solid" name="sauCode"
+							placeholder="SAU Code-xxx" autocomplete="off"
+							[class.is-invalid]="isControlInvalid('sauCode')"
+							[class.is-valid]="isControlValid('sauCode')" formControlName="sauCode" />
+						<div class="valid-feedback" *ngIf="isControlValid('sauCode')">
+							SAU Code was entered correct
+						</div>
+						<!-- <div class="invalid-feedback" *ngIf="!controlHasError('required', 'sauCode') 
+							&& isControlInvalid('sauCode')
+							&& !controlHasError('minlength', 'sauCode')
+							&& !controlHasError('maxlength', 'sauCode')">
+							SAU Code should have SAU- prefix
+						</div> -->
+						<div class="invalid-feedback" *ngIf="controlHasError('required', 'sauCode')">
+							SAU Code is required
+						</div>
+						<div class="invalid-feedback" *ngIf="controlHasError('min', 'sauCode')">
+							SAU Code should have at least 2 digit
+						</div>
+						<div class="invalid-feedback" *ngIf="controlHasError('max', 'sauCode')">
+							SAU Code should have maximum 5 digit
+						</div>
+					</div>
+
+				</div>
+
+
+				<div class="col-lg-6">
+					<label>Select State</label>
+					<ng-select placeholder="Select State" [items]="stateList" bindLabel="name" bindValue="_id"
+						formControlName="stateId">
+					</ng-select>
+					<div class="valid-feedback" *ngIf="isControlValid('stateId')">
+						State was entered correct
+					</div>
+					<div class="invalid-feedback" *ngIf="controlHasError('required', 'stateId')">
+						State is required
+					</div>
+				</div>
+			</form>
+		</ng-container>
+	</div>
+</div>
+<div class="modal-footer">
+	<button type="button" class="btn btn-light btn-elevate mr-2" (click)="cancel()">
+		Cancel
+	</button>
+	<ng-container *ngIf="!districtData">
+		<button type="submit" class="btn btn-primary btn-elevate" (click)="save()" [disabled]="formGroup.invalid">
+			<i class="fa fa-spin fa-spinner" *ngIf="isLoading"></i> Save
+		</button>
+	</ng-container>
+</div>

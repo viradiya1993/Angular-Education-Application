@@ -1,0 +1,178 @@
+{
+    "data": [
+        {
+            "_id": "611cf33367856808edd63910",
+            "quesArray": [
+                {
+                    "ans": "asdasd",
+                    "ques": [
+                        {
+                            "questId": "asdasd",
+                            "quesName": "asdhaskd"
+                        }
+                    ]
+                },
+                {
+                    "ans": "asdasd",
+                    "ques": [
+                        {
+                            "questId": "asdasd",
+                            "quesName": "asdhaskd"
+                        }
+                    ]
+                },
+                {
+                    "ans": "asdasd",
+                    "ques": [
+                        {
+                            "questId": "asdasd",
+                            "quesName": "asdhaskd"
+                        }
+                    ]
+                },
+                {
+                    "ans": "asdasd",
+                    "ques": [
+                        {
+                            "questId": "asdasd",
+                            "quesName": "asdhaskd"
+                        }
+                    ]
+                }
+            ],
+            "schoolId": "asdasd",
+            "TeacherId": "asdsad"
+        },
+        {
+            "_id": "611cf33367856808edd63910",
+            "quesArray": [
+                {
+                    "ans": "asdasd",
+                    "ques": [
+                        {
+                            "questId": "asdasd",
+                            "quesName": "asdhaskd"
+                        }
+                    ]
+                },
+                {
+                    "ans": "asdasd",
+                    "ques": [
+                        {
+                            "questId": "asdasd",
+                            "quesName": "asdhaskd"
+                        }
+                    ]
+                },
+                {
+                    "ans": "asdasd",
+                    "ques": [
+                        {
+                            "questId": "asdasd",
+                            "quesName": "asdhaskd"
+                        }
+                    ]
+                },
+                {
+                    "ans": "asdasd",
+                    "ques": [
+                        {
+                            "questId": "asdasd",
+                            "quesName": "asdhaskd"
+                        }
+                    ]
+                }
+            ],
+            "schoolId": "asdasd",
+            "TeacherId": "asdsad"
+        },
+        {
+            "_id": "611cf33367856808edd63910",
+            "quesArray": [
+                {
+                    "ans": "asdasd",
+                    "ques": [
+                        {
+                            "questId": "asdasd",
+                            "quesName": "asdhaskd"
+                        }
+                    ]
+                },
+                {
+                    "ans": "asdasd",
+                    "ques": [
+                        {
+                            "questId": "asdasd",
+                            "quesName": "asdhaskd"
+                        }
+                    ]
+                },
+                {
+                    "ans": "asdasd",
+                    "ques": [
+                        {
+                            "questId": "asdasd",
+                            "quesName": "asdhaskd"
+                        }
+                    ]
+                },
+                {
+                    "ans": "asdasd",
+                    "ques": [
+                        {
+                            "questId": "asdasd",
+                            "quesName": "asdhaskd"
+                        }
+                    ]
+                }
+            ],
+            "schoolId": "asdasd",
+            "TeacherId": "asdsad"
+        },
+        {
+            "_id": "611cf33367856808edd63910",
+            "quesArray": [
+                {
+                    "ans": "asdasd",
+                    "ques": [
+                        {
+                            "questId": "asdasd",
+                            "quesName": "asdhaskd"
+                        }
+                    ]
+                },
+                {
+                    "ans": "asdasd",
+                    "ques": [
+                        {
+                            "questId": "asdasd",
+                            "quesName": "asdhaskd"
+                        }
+                    ]
+                },
+                {
+                    "ans": "asdasd",
+                    "ques": [
+                        {
+                            "questId": "asdasd",
+                            "quesName": "asdhaskd"
+                        }
+                    ]
+                },
+                {
+                    "ans": "asdasd",
+                    "ques": [
+                        {
+                            "questId": "asdasd",
+                            "quesName": "asdhaskd"
+                        }
+                    ]
+                }
+            ],
+            "schoolId": "asdasd",
+            "TeacherId": "asdsad"
+        }
+    ],
+    "count": 4,
+    "message": "Form Data Fetched Successfully"
+}

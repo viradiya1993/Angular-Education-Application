@@ -1,0 +1,19 @@
+.mar-top-2{
+    margin-top: 10px !important;
+}
+.required-asterisk{
+    color: red;
+    font-weight: bold;
+    margin-left: 3px;
+    font-size: 1.2em;
+}
+
+.ng-select.custom .ng-select-container {
+    /* height: 42px; */
+}
+.ng-select.custom .ng-select-container .ng-value-container {
+    color: red;
+}
+.ng-select.custom .ng-select-container .ng-value-container .ng-placeholder {
+    color: yellow;
+}
